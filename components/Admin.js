@@ -1,11 +1,114 @@
-import {useState} from 'react'
+import { useState, useEffect } from "react";
+import Question from "./Question";
 
 export default function AdminPage() {
+  const [title, setTitleName] = useState("");
+  const [numberOFQuestions, setNumberOFQuestions] = useState(0);
+  const [maxTimeToFinish, setTimeFinish] = useState(0);
+  const [maxTimeToFinishPage, setTimePage] = useState(0);
+  const [questions, setQuestions] = useState([]);
 
-  const [title,setTitleName]= useState('')
-  const [numberOFQuestions,setQuestions]= useState(0)
-  const [maxTimeToFinish,setTimeFinish]= useState(0)
-  const [maxTimeToFinishPage,setTimePage]= useState(0)
+  useEffect(() => {
+    const questionsPlaceHolders = [];
+    questionsPlaceHolders.length = numberOFQuestions;
+    questionsPlaceHolders.fill(1);
+    const newQuestions = questionsPlaceHolders.map((q) => {
+      return {
+        elements: [
+          {
+            type: "radiogroup",
+            name: "",
+            title: "",
+            choices: [],
+            correctAnswer: "",
+          },
+        ],
+      };
+    });
+    setQuestions(newQuestions);
+  }, [numberOFQuestions]);
+
+  const buildSurvey = () => {
+    const firstPage = {
+      elements: [
+        {
+          type: "html",
+          html: `You are about to start a quiz on ${title}. <br>You will have ${maxTimeToFinishPage} seconds for every question and ${maxTimeToFinish} seconds to end the quiz.<br>Enter your name below and click <b>Start Quiz</b> to begin.`,
+        },
+        {
+          type: "text",
+          name: "username",
+          titleLocation: "hidden",
+          isRequired: true,
+        },
+      ],
+    };
+
+    let pages = [firstPage, ...questions];
+
+    const surveyPlaceholder = {
+      title: title || "empty title",
+      showProgressBar: "bottom",
+      showTimerPanel: "top",
+      maxTimeToFinishPage: Number(maxTimeToFinishPage) || 10,
+      maxTimeToFinish: Number(maxTimeToFinish) || 25,
+      firstPageIsStarted: true,
+      startSurveyText: "Start Quiz",
+      pages,
+      completedHtml:
+        "<h4>You got <b>{correctAnswers}</b> out of <b>{questionCount}</b> correct answers.</h4>",
+      completedHtmlOnCondition: [
+        {
+          expression: "{correctAnswers} == 0",
+          html: "<h4>Unfortunately, none of your answers is correct. Please try again.</h4>",
+        },
+        {
+          expression: "{correctAnswers} == {questionCount}",
+          html: "<h4>Congratulations! You answered all the questions correctly!</h4>",
+        },
+      ],
+    };
+
+    return surveyPlaceholder;
+  };
+
+  const sendSurvey = (e) => {
+    e.preventDefault();
+
+    const survey = buildSurvey(questions);
+
+    fetch("/api/updateSurvey", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "user-name": localStorage.getItem("userName"),
+        password: localStorage.getItem("password"),
+      },
+      body: JSON.stringify(survey),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        if (json.success) {
+          alert("updated successfully");
+          resetAll();
+        } else alert(json.msg);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("fatal error please try again latter");
+      });
+  };
+
+  const resetAll = () => {
+    setTitleName("");
+    setNumberOFQuestions(0);
+    setTimeFinish(0);
+    setTimePage(0);
+    setQuestions([]);
+  };
 
   return (
     <div className="admin-container">
@@ -13,14 +116,41 @@ export default function AdminPage() {
         <h1>Create a Survey</h1>
       </header>
       <div className="survey-body">
-        <form onSubmit={(e)=>e.preventDefault()} action="">
-          <input onChange={(e)=>{setTitleName(e.target.value)}} type="text" placeholder="Survey Title..."/>
-          <input onChange={(e)=>{setQuestions(e.target.value)}} type="number" placeholder="How many questions?"/>
-          <input onChange={(e)=>{setTimeFinish(e.target.value)}} type="number" placeholder="Time for each question..."/>
-          <input onChange={(e)=>{setTimePage(e.target.value)}} type="number" placeholder="Time for the entire survey..."/>
-          <button type="submit">Next</button>
+        <form onSubmit={sendSurvey} action="">
+          <input
+            onChange={(e) => {
+              setTitleName(e.target.value);
+            }}
+            type="text"
+            placeholder="Survey Title..."
+          />
+          <input
+            onChange={(e) => {
+              setNumberOFQuestions(e.target.value);
+            }}
+            type="number"
+            placeholder="How many questions?"
+          />
+          <input
+            onChange={(e) => {
+              setTimeFinish(e.target.value);
+            }}
+            type="number"
+            placeholder="Time for each question..."
+          />
+          <input
+            onChange={(e) => {
+              setTimePage(e.target.value);
+            }}
+            type="number"
+            placeholder="Time for the entire survey..."
+          />
+          {questions.map((question, index) => {
+            return <Question key={index} question={question} />;
+          })}
+          <button type="submit">Update Survey</button>
         </form>
       </div>
     </div>
-  )
+  );
 }
