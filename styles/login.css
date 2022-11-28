@@ -1,0 +1,41 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.login-container {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.61);
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 10%;
+  padding: 60px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.login-container h1 {
+  color: #19b394;
+  text-shadow: 1px 1px 1px black;
+  margin-bottom: 30px;
+}
+
+.input-section input , button{
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.71);
+  font-size: 20px;
+  padding: 7px;
+  margin-top: 15px;
+}
+
+.input-section button{
+  /* font-size: 20px; */
+  /* padding: 7px; */
+  width: 262px;
+  /* margin-top: 15px; */
+  margin-bottom: 20px;
+}
+
+
+/* #19b394 */
