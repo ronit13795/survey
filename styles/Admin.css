@@ -1,9 +1,4 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-
-.login-container {
+.admin-container {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.61);
   width: 400px;
@@ -14,24 +9,29 @@
   border-radius: 10px;
 }
 
-.login-container h1 {
+
+.survey-body button {
+  
+}
+
+.admin-container h1 {
   color: #19b394;
   text-shadow: 1px 1px 1px black;
   margin-bottom: 30px;
 }
 
-.input-section input , button{
+.survey-body input , button{
   border: none;
   border-radius: 3px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.71);
   font-size: 20px;
+  width: 350px;
   padding: 7px;
   margin-top: 15px;
 }
 
 
-.input-section button{
-  width: 262px;
+.survey-body button{
+  width: 365px;
   margin-top: 50px;
 }
-
