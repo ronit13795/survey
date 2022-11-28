@@ -3,14 +3,14 @@ import Question from "./Question";
 
 export default function AdminPage() {
   const [title, setTitleName] = useState("");
-  const [numberOFQuestions, setNumberOFQuestions] = useState(0);
-  const [maxTimeToFinish, setTimeFinish] = useState(0);
-  const [maxTimeToFinishPage, setTimePage] = useState(0);
+  const [numberOFQuestions, setNumberOFQuestions] = useState("");
+  const [maxTimeToFinish, setTimeFinish] = useState("");
+  const [maxTimeToFinishPage, setTimePage] = useState("");
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     const questionsPlaceHolders = [];
-    questionsPlaceHolders.length = numberOFQuestions;
+    questionsPlaceHolders.length = numberOFQuestions || 0;
     questionsPlaceHolders.fill(1);
     const newQuestions = questionsPlaceHolders.map((q) => {
       return {
@@ -104,9 +104,9 @@ export default function AdminPage() {
 
   const resetAll = () => {
     setTitleName("");
-    setNumberOFQuestions(0);
-    setTimeFinish(0);
-    setTimePage(0);
+    setNumberOFQuestions("");
+    setTimeFinish("");
+    setTimePage("");
     setQuestions([]);
   };
 
@@ -118,6 +118,7 @@ export default function AdminPage() {
       <div className="survey-body">
         <form onSubmit={sendSurvey} action="">
           <input
+            value={title}
             onChange={(e) => {
               setTitleName(e.target.value);
             }}
@@ -125,6 +126,7 @@ export default function AdminPage() {
             placeholder="Survey Title..."
           />
           <input
+            value={numberOFQuestions}
             onChange={(e) => {
               setNumberOFQuestions(e.target.value);
             }}
@@ -132,6 +134,7 @@ export default function AdminPage() {
             placeholder="How many questions?"
           />
           <input
+            value={maxTimeToFinish}
             onChange={(e) => {
               setTimeFinish(e.target.value);
             }}
@@ -139,6 +142,7 @@ export default function AdminPage() {
             placeholder="Time for each question..."
           />
           <input
+            value={maxTimeToFinishPage}
             onChange={(e) => {
               setTimePage(e.target.value);
             }}
