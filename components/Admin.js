@@ -1,45 +1,26 @@
-import { SurveyCreatorComponent, SurveyCreator } from "survey-creator-react";
-import "survey-core/defaultV2.min.css";
-import "survey-creator-core/survey-creator-core.min.css";
+import {useState} from 'react'
 
-const creatorOptions = {
-  showLogicTab: true,
-  isAutoSave: true,
-};
+export default function AdminPage() {
 
-const defaultJson = {
-  pages: [
-    {
-      name: "Name",
-      elements: [
-        {
-          name: "FirstName",
-          title: "Enter your first name:",
-          type: "text",
-        },
-        {
-          name: "LastName",
-          title: "Enter your last name:",
-          type: "text",
-        },
-      ],
-    },
-  ],
-};
+  const [title,setTitleName]= useState('')
+  const [numberOFQuestions,setQuestions]= useState(0)
+  const [maxTimeToFinish,setTimeFinish]= useState(0)
+  const [maxTimeToFinishPage,setTimePage]= useState(0)
 
-export default function SurveyCreatorWidget() {
-  const creator = new SurveyCreator(creatorOptions);
-  creator.text =
-    window.localStorage.getItem("survey-json") || JSON.stringify(defaultJson);
-  creator.saveSurveyFunc = (saveNo, callback) => {
-    window.localStorage.setItem("survey-json", creator.text);
-    callback(saveNo, true);
-    // saveSurveyJson(
-    //     "https://your-web-service.com/",
-    //     creator.JSON,
-    //     saveNo,
-    //     callback
-    // );
-  };
-  return <SurveyCreatorComponent creator={creator} />;
+  return (
+    <div className="admin-container">
+      <header>
+        <h1>Create a Survey</h1>
+      </header>
+      <div className="survey-body">
+        <form onSubmit={(e)=>e.preventDefault()} action="">
+          <input onChange={(e)=>{setTitleName(e.target.value)}} type="text" placeholder="Survey Title..."/>
+          <input onChange={(e)=>{setQuestions(e.target.value)}} type="number" placeholder="How many questions?"/>
+          <input onChange={(e)=>{setTimeFinish(e.target.value)}} type="number" placeholder="Time for each question..."/>
+          <input onChange={(e)=>{setTimePage(e.target.value)}} type="number" placeholder="Time for the entire survey..."/>
+          <button type="submit">Next</button>
+        </form>
+      </div>
+    </div>
+  )
 }

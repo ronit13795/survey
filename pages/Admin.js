@@ -1,9 +1,11 @@
-import dynamic from "next/dynamic";
+import AdminPage from "../components/Admin";
 
-const DynamicSurvey = dynamic(() => import("../components/Admin"), {
-  ssr: false,
-});
 
-export default function Home() {
-  return <DynamicSurvey />;
+export default function Admin() {
+
+  return (
+
+    <AdminPage/>
+    
+  )
 }
