@@ -1,20 +1,18 @@
 import dbConnect from "../../lib/dbConnect";
 import surveyModel from "../../models/survey";
 
+async function getSurvey(req, res) {
+  await dbConnect();
 
-    async function getSurvey(req, res) {
-        await dbConnect();
+  if (req.method === "GET") {
+    let mySurvey = await surveyModel.find();
+    if (!mySurvey.length) {
+      return res.json({ success: false, msg: "no survey found" });
+    }
+    res.json(mySurvey[0]);
+  } else {
+    res.json({ success: false, msg: "is not get method" });
+  }
+}
 
-        let survey = new surveyModel()
-      
-        if (req.method === "GET") {
-         let mySurvey = await survey.find();
-          res.json(mySurvey);
-        }
-        else{
-          res.json({msg:'is not get method'})
-        }
-
-      }
-      
-      export default getSurvey;
+export default getSurvey;
