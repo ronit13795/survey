@@ -82,7 +82,7 @@ export default function AdminPage() {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "user-name": localStorage.getItem("userName"),
+        "user-name": localStorage.getItem("user-name"),
         password: localStorage.getItem("password"),
       },
       body: JSON.stringify(survey),
@@ -130,7 +130,12 @@ export default function AdminPage() {
             onChange={(e) => {
               setNumberOFQuestions(e.target.value);
             }}
-            type="number"
+            type="text"
+            onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
             placeholder="How many questions?"
           />
           <input
@@ -138,7 +143,12 @@ export default function AdminPage() {
             onChange={(e) => {
               setTimeFinish(e.target.value);
             }}
-            type="number"
+            type="text"
+            onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
             placeholder="Time for each question..."
           />
           <input
@@ -146,7 +156,12 @@ export default function AdminPage() {
             onChange={(e) => {
               setTimePage(e.target.value);
             }}
-            type="number"
+            type="text"
+            onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
             placeholder="Time for the entire survey..."
           />
           {questions.map((question, index) => {

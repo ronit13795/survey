@@ -7,19 +7,21 @@ export default function Login() {
   const router = useRouter();
 
   const checkAdminCredentials = () => {
-    fetch("/admin", {
+    fetch("api/admin", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userName, password: pw }),
+      body: JSON.stringify({ "user-name": userName, password: pw }),
     })
       .then((res) => {
         return res.json();
       })
       .then((json) => {
         if (json.success) {
+          localStorage.setItem("user-name", userName);
+          localStorage.setItem("password", pw);
           return router.push("/Admin");
         }
         return alert("invalid credentials");
