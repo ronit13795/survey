@@ -9,11 +9,6 @@
   border-radius: 10px;
 }
 
-
-.survey-body button {
-  
-}
-
 .admin-container h1 {
   color: #19b394;
   text-shadow: 1px 1px 1px black;
@@ -34,4 +29,10 @@
 .survey-body button{
   width: 365px;
   margin-top: 50px;
+  background-color: white;
+  color: #19b394;
+}
+
+.survey-body button:hover {
+  border: 2px solid #19b394;
 }

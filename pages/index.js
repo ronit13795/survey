@@ -14,7 +14,7 @@ export default function Home({ survey }) {
     <Fragment>
       <header className={style.header}>
         <Link className={style.link} href={"/Login"}>
-          <button>ADMIN</button>
+          <button className={style.btn}>Admin</button>
         </Link>
       </header>
       <DynamicForm survey={survey} />

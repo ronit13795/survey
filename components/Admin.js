@@ -4,8 +4,8 @@ import Question from "./Question";
 export default function AdminPage() {
   const [title, setTitleName] = useState("");
   const [numberOFQuestions, setNumberOFQuestions] = useState("");
-  const [maxTimeToFinish, setTimeFinish] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
+  const [maxTimeToFinish, setTimeFinish] = useState("");
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function AdminPage() {
       elements: [
         {
           type: "html",
-          html: `You are about to start a quiz on ${title}. <br>You will have ${maxTimeToFinishPage} seconds for every question and ${maxTimeToFinish} seconds to end the quiz.<br>Enter your name below and click <b>Start Quiz</b> to begin.`,
+          html: `You are about to start a quiz on <b>${title}</b>. <br>You will have ${maxTimeToFinishPage} seconds for every question and ${maxTimeToFinish} seconds to end the quiz.<br>Enter your name below and click <b>Start Quiz</b> to begin.`,
         },
         {
           type: "text",
@@ -139,19 +139,6 @@ export default function AdminPage() {
             placeholder="How many questions?"
           />
           <input
-            value={maxTimeToFinish}
-            onChange={(e) => {
-              setTimeFinish(e.target.value);
-            }}
-            type="text"
-            onKeyPress={(event) => {
-              if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
-              }
-            }}
-            placeholder="Time for each question..."
-          />
-          <input
             value={maxTimeToFinishPage}
             onChange={(e) => {
               setTimePage(e.target.value);
@@ -162,10 +149,23 @@ export default function AdminPage() {
                 event.preventDefault();
               }
             }}
+            placeholder="Time for each question..."
+          />
+          <input
+            value={maxTimeToFinish}
+            onChange={(e) => {
+              setTimeFinish(e.target.value);
+            }}
+            type="text"
+            onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
             placeholder="Time for the entire survey..."
           />
           {questions.map((question, index) => {
-            return <Question key={index} question={question} />;
+            return <Question key={index} question={question} index={index}/>;
           })}
           <button type="submit">Update Survey</button>
         </form>
