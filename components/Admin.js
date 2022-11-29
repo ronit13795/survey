@@ -165,7 +165,7 @@ export default function AdminPage() {
             placeholder="Time for the entire survey..."
           />
           {questions.map((question, index) => {
-            return <Question key={index} question={question} index={index}/>;
+            return <Question key={index} question={question} index={index} />;
           })}
           <button type="submit">Update Survey</button>
         </form>
