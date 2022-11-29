@@ -12,7 +12,7 @@ export default function Home() {
     <Fragment>
       <header className={style.header}>
         <button>
-          <Link className={style.link} href={"/login"}>
+          <Link className={style.link} href={"/Login"}>
             ADMIN
           </Link>
         </button>
