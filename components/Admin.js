@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Question from "./Question";
 
 export default function AdminPage() {
@@ -22,6 +22,24 @@ export default function AdminPage() {
         ],
       },
     ]);
+  };
+
+  const updateSurveyContext = (indexToUpdate, updatedQuestion) => {
+    const updateQuestions = questions.map((question, index) => {
+      if (indexToUpdate === index) {
+        return updatedQuestion;
+      }
+      return question;
+    });
+    setQuestions([...updateQuestions]);
+  };
+
+  const deleteQuestion = (indexToDelete) => {
+    const updateQuestions = questions.filter((question, index) => {
+      return index !== indexToDelete;
+    });
+
+    setQuestions([...updateQuestions]);
   };
 
   const buildSurvey = () => {
@@ -147,7 +165,22 @@ export default function AdminPage() {
           />
 
           {questions.map((question, index) => {
-            return <Question key={index} question={question} index={index} />;
+            return (
+              <Question
+                key={index}
+                updateSurveyContext={updateSurveyContext}
+                index={index}
+                question={question}
+                deleteQuestion={deleteQuestion}
+                name={question.elements[0].name}
+                titleToSHow={question.elements[0].title}
+                choice1={question.elements[0].choices[0]}
+                choice2={question.elements[0].choices[1]}
+                choice3={question.elements[0].choices[2]}
+                choice4={question.elements[0].choices[3]}
+                answer={question.elements[0].correctAnswer}
+              />
+            );
           })}
           <button
             type="button"
