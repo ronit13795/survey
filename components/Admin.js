@@ -3,17 +3,14 @@ import Question from "./Question";
 
 export default function AdminPage() {
   const [title, setTitleName] = useState("");
-  const [numberOFQuestions, setNumberOFQuestions] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
   const [questions, setQuestions] = useState([]);
 
-  useEffect(() => {
-    const questionsPlaceHolders = [];
-    questionsPlaceHolders.length = numberOFQuestions || 0;
-    questionsPlaceHolders.fill(1);
-    const newQuestions = questionsPlaceHolders.map((q) => {
-      return {
+  const addQuestion = () => {
+    setQuestions([
+      ...questions,
+      {
         elements: [
           {
             type: "radiogroup",
@@ -23,10 +20,9 @@ export default function AdminPage() {
             correctAnswer: "",
           },
         ],
-      };
-    });
-    setQuestions(newQuestions);
-  }, [numberOFQuestions]);
+      },
+    ]);
+  };
 
   const buildSurvey = () => {
     const firstPage = {
@@ -76,7 +72,6 @@ export default function AdminPage() {
     e.preventDefault();
 
     const survey = buildSurvey(questions);
-
     fetch("/api/updateSurvey", {
       method: "PUT",
       headers: {
@@ -104,7 +99,6 @@ export default function AdminPage() {
 
   const resetAll = () => {
     setTitleName("");
-    setNumberOFQuestions("");
     setTimeFinish("");
     setTimePage("");
     setQuestions([]);
@@ -124,19 +118,6 @@ export default function AdminPage() {
             }}
             type="text"
             placeholder="Survey Title..."
-          />
-          <input
-            value={numberOFQuestions}
-            onChange={(e) => {
-              setNumberOFQuestions(e.target.value);
-            }}
-            type="text"
-            onKeyPress={(event) => {
-              if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
-              }
-            }}
-            placeholder="How many questions?"
           />
           <input
             value={maxTimeToFinishPage}
@@ -164,9 +145,18 @@ export default function AdminPage() {
             }}
             placeholder="Time for the entire survey..."
           />
+
           {questions.map((question, index) => {
             return <Question key={index} question={question} index={index} />;
           })}
+          <button
+            type="button"
+            onClick={() => {
+              addQuestion();
+            }}
+          >
+            Add Question
+          </button>
           <button type="submit">Update Survey</button>
         </form>
       </div>
