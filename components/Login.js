@@ -53,7 +53,7 @@ export default function Login() {
             onChange={(e) => {
               setPw(e.target.value);
             }}
-            type="text"
+            type="password"
             placeholder="Password"
           />
           <button type="submit">Login</button>
