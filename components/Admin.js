@@ -1,28 +1,34 @@
+import { useDrop } from 'react-dnd'
 import { useState } from "react";
 import Question from "./Question";
 
-export default function AdminPage() {
+export default function AdminPage({ questions, setQuestions, addQuestion }) {
   const [title, setTitleName] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
-  const [questions, setQuestions] = useState([]);
 
-  const addQuestion = () => {
-    setQuestions([
-      ...questions,
-      {
-        elements: [
-          {
-            type: "radiogroup",
-            name: "",
-            title: "",
-            choices: [],
-            correctAnswer: "",
-          },
-        ],
-      },
-    ]);
-  };
+
+  const [{ canDrop, isOver }, drop] = useDrop(() => ({
+    accept: 'box',
+    drop: () => ({ name: 'Dustbin' }),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }))
+
+
+  const isActive = canDrop && isOver
+  let backgroundColor = '#ffffff'
+  if (isActive) {
+    backgroundColor = '#d2f7e5'
+  } else if (canDrop) {
+    backgroundColor = '#feffed'
+  }
+
+
+
+
 
   const updateSurveyContext = (indexToUpdate, updatedQuestion) => {
     const updateQuestions = questions.map((question, index) => {
@@ -127,7 +133,7 @@ export default function AdminPage() {
       <header>
         <h1>Create a Survey</h1>
       </header>
-      <div className="survey-body">
+      <div ref={drop} style={{ backgroundColor }} className="survey-body">
         <form onSubmit={sendSurvey} action="">
           <input
             value={title}
