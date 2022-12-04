@@ -165,7 +165,7 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
           />
 
           {questions.map((question, index) => {
-            if (question?.elements?.[0]?.type === "radiogroup") {
+            if (question.elements[0].type === "radiogroup") {
               return (
                 <Question
                   key={index}
@@ -199,14 +199,6 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
               );
             }
           })}
-          <button
-            type="button"
-            onClick={() => {
-              addQuestion();
-            }}
-          >
-            Add Question
-          </button>
           <button type="submit">Update Survey</button>
         </form>
       </div>

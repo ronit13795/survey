@@ -13,8 +13,9 @@ export default function Rating({
 }) {
   const [name, setName] = useState(question.elements[0].name || "");
   const [title, setTitle] = useState(question.elements[0].title || "");
-  const [rateMin, setRateMin] = useState(question.elements[0].rateMin || 0);
-  const [rateMax, setRateMax] = useState(question.elements[0].rateMax || 10);
+  const [rateMin, setRateMin] = useState(question.elements[0].rateMin);
+  const [rateMax, setRateMax] = useState(question.elements[0].rateMax);
+  console.log(question.elements[0].rateMin);
 
   useEffect(() => {
     updateSurveyContext(index, {
@@ -23,8 +24,8 @@ export default function Rating({
           type: "rating",
           name,
           title,
-          rateMin: Number(rateMin),
-          rateMax: Number(rateMax),
+          rateMin: rateMin,
+          rateMax: rateMax,
         },
       ],
     });
@@ -34,7 +35,7 @@ export default function Rating({
     <div className="container">
       <div className="space-color"></div>
       <div className="question-container">
-        <h2>Question {index + 1}</h2>
+        <h2>Question {index + 1} - rating type </h2>
 
         <input
           onChange={(e) => {
@@ -48,7 +49,7 @@ export default function Rating({
           onChange={(e) => {
             setTitle(e.target.value);
           }}
-          placeholder="What is the question"
+          placeholder="Write here what the question is"
         />
 
         <input
@@ -56,14 +57,14 @@ export default function Rating({
           onChange={(e) => {
             setRateMin(e.target.value);
           }}
-          placeholder="Fourth option"
+          placeholder="What is the minimum rating?"
         />
         <input
           value={max}
           onChange={(e) => {
             setRateMax(e.target.value);
           }}
-          placeholder="Correct answer"
+          placeholder="What is the maximum rating?"
         />
         <button
           type="button"
