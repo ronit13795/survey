@@ -11,21 +11,9 @@ export default function Admin() {
   const router = useRouter();
   const [questions, setQuestions] = useState([]);
 
-  const addQuestion = () => {
-    setQuestions((questions) => [
-      ...questions,
-      {
-        elements: [
-          {
-            type: "radiogroup",
-            name: "",
-            title: "",
-            choices: [],
-            correctAnswer: "",
-          },
-        ],
-      },
-    ]);
+  const addQuestion = (question) => {
+    const copyQuestion = { ...question };
+    setQuestions((questions) => [...questions, copyQuestion]);
   };
 
   return (

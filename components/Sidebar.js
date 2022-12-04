@@ -1,14 +1,41 @@
-import styles from "../styles/Sidebar.module.css"
-import SidebarItem from "./SidebarItem"
+import styles from "../styles/Sidebar.module.css";
+import SidebarItem from "./SidebarItem";
 
 export default function Sidebar({ addQuestion }) {
-
-    return (
-        <div className={styles.sidebarContainer}>
-            <div className={styles.sidebar}>
-                <SidebarItem name={"question 1"} addQuestion={addQuestion} />
-                <SidebarItem name={"question 2"} addQuestion={addQuestion} />
-            </div>
-        </div>
-    );
+  return (
+    <div className={styles.sidebarContainer}>
+      <div className={styles.sidebar}>
+        <SidebarItem
+          name={"radio group"}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                type: "radiogroup",
+                name: "",
+                title: "",
+                choices: [],
+                correctAnswer: "",
+              },
+            ],
+          }}
+        />
+        <SidebarItem
+          name={"rating"}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                type: "rating",
+                name: "",
+                title: "",
+                rateMin: "",
+                rateMax: "",
+              },
+            ],
+          }}
+        />
+      </div>
+    </div>
+  );
 }

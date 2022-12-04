@@ -1,34 +1,29 @@
-import { useDrop } from 'react-dnd'
+import { useDrop } from "react-dnd";
 import { useState } from "react";
 import Question from "./Question";
+import Rating from "./Rating";
 
 export default function AdminPage({ questions, setQuestions, addQuestion }) {
   const [title, setTitleName] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
 
-
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: 'box',
-    drop: () => ({ name: 'Dustbin' }),
+    accept: "box",
+    drop: () => ({ name: "Dustbin" }),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),
-  }))
+  }));
 
-
-  const isActive = canDrop && isOver
-  let backgroundColor = '#ffffff'
+  const isActive = canDrop && isOver;
+  let backgroundColor = "#ffffff";
   if (isActive) {
-    backgroundColor = '#d2f7e5'
+    backgroundColor = "#d2f7e5";
   } else if (canDrop) {
-    backgroundColor = '#feffed'
+    backgroundColor = "#feffed";
   }
-
-
-
-
 
   const updateSurveyContext = (indexToUpdate, updatedQuestion) => {
     const updateQuestions = questions.map((question, index) => {
@@ -75,18 +70,17 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
       firstPageIsStarted: true,
       startSurveyText: "Start Quiz",
       pages,
-      completedHtml:
-        "<h4>You got <b>{correctAnswers}</b> out of <b>{questionCount}</b> correct answers.</h4>",
-      completedHtmlOnCondition: [
-        {
-          expression: "{correctAnswers} == 0",
-          html: "<h4>Unfortunately, none of your answers is correct. Please try again.</h4>",
-        },
-        {
-          expression: "{correctAnswers} == {questionCount}",
-          html: "<h4>Congratulations! You answered all the questions correctly!</h4>",
-        },
-      ],
+      completedHtml: "<h4>thank you for your time.</h4>",
+      // completedHtmlOnCondition: [
+      //   {
+      //     expression: "{correctAnswers} == 0",
+      //     html: "<h4>Unfortunately, none of your answers is correct. Please try again.</h4>",
+      //   },
+      //   {
+      //     expression: "{correctAnswers} == {questionCount}",
+      //     html: "<h4>Congratulations! You answered all the questions correctly!</h4>",
+      //   },
+      // ],
     };
 
     return surveyPlaceholder;
@@ -171,22 +165,39 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
           />
 
           {questions.map((question, index) => {
-            return (
-              <Question
-                key={index}
-                updateSurveyContext={updateSurveyContext}
-                index={index}
-                question={question}
-                deleteQuestion={deleteQuestion}
-                name={question.elements[0].name}
-                titleToSHow={question.elements[0].title}
-                choice1={question.elements[0].choices[0]}
-                choice2={question.elements[0].choices[1]}
-                choice3={question.elements[0].choices[2]}
-                choice4={question.elements[0].choices[3]}
-                answer={question.elements[0].correctAnswer}
-              />
-            );
+            if (question?.elements?.[0]?.type === "radiogroup") {
+              return (
+                <Question
+                  key={index}
+                  updateSurveyContext={updateSurveyContext}
+                  index={index}
+                  question={question}
+                  deleteQuestion={deleteQuestion}
+                  name={question.elements[0].name}
+                  titleToSHow={question.elements[0].title}
+                  choice1={question.elements[0].choices[0]}
+                  choice2={question.elements[0].choices[1]}
+                  choice3={question.elements[0].choices[2]}
+                  choice4={question.elements[0].choices[3]}
+                  answer={question.elements[0].correctAnswer}
+                />
+              );
+            }
+            if (question.elements[0].type === "rating") {
+              return (
+                <Rating
+                  key={index}
+                  index={index}
+                  question={question}
+                  deleteQuestion={deleteQuestion}
+                  updateSurveyContext={updateSurveyContext}
+                  name={question.elements[0].name}
+                  titleToSHow={question.elements[0].title}
+                  min={question.elements[0].rateMin}
+                  max={question.elements[0].rateMax}
+                />
+              );
+            }
           })}
           <button
             type="button"
