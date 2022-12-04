@@ -35,6 +35,20 @@ export default function Sidebar({ addQuestion }) {
             ],
           }}
         />
+        <SidebarItem
+          name={"text"}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                name: "",
+                type: "text",
+                isRequired: false,
+                requiredErrorText: "Value cannot be empty",
+              },
+            ],
+          }}
+        />
       </div>
     </div>
   );
