@@ -50,7 +50,7 @@ export default function Question({
     <div className="container">
       <div className="space-color"></div>
       <div className="question-container">
-        <h2>Question {index + 1}</h2>
+        <h2>Question {index + 1} -radiogroup type</h2>
 
         <input
           onChange={(e) => {
