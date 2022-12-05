@@ -2,6 +2,7 @@ import { useDrop } from "react-dnd";
 import { useState } from "react";
 import Question from "./Question";
 import Rating from "./Rating";
+import Text from "./Text";
 
 export default function AdminPage({ questions, setQuestions, addQuestion }) {
   const [title, setTitleName] = useState("");
@@ -198,7 +199,22 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
                 />
               );
             }
+            if (question.elements[0].type === "text") {
+              return (
+                <Text
+                  key={index}
+                  index={index}
+                  question={question}
+                  deleteQuestion={deleteQuestion}
+                  updateSurveyContext={updateSurveyContext}
+                  name={question.elements[0].name}
+                  isRequired={question.elements[0].isRequired}
+                  requiredErrorText={question.elements[0].requiredErrorText}
+                />
+              );
+            }
           })}
+
           <button type="submit">Update Survey</button>
         </form>
       </div>

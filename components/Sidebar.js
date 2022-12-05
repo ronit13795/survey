@@ -43,7 +43,7 @@ export default function Sidebar({ addQuestion }) {
               {
                 name: "",
                 type: "text",
-                isRequired: false,
+                isRequired: true,
                 requiredErrorText: "Value cannot be empty",
               },
             ],
