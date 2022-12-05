@@ -2,22 +2,24 @@ import { useDrag } from "react-dnd";
 import itemTypes from "../src/sidebarItemTypes";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import Button from "@mui/material/Button";
 
 export default function SidebarItem({
   name,
   questionType,
   addQuestion,
   question,
+  Icon,
 }) {
   const [isHover, setIsHover] = useState(false);
-  const style = {
-    border: "1px dashed gray",
-    backgroundColor: "white",
-    padding: "0.5rem 1rem",
-    cursor: "move",
-    float: "left",
-    backgroundColor: isHover ? "#DEF5E5" : "white",
-  };
+  // const style = {
+  //   border: "1px dashed gray",
+  //   backgroundColor: "white",
+  //   padding: "0.5rem 1rem",
+  //   cursor: "move",
+  //   float: "left",
+  //   backgroundColor: isHover ? "#DEF5E5" : "white",
+  // };
   const handleMouseEnter = () => {
     setIsHover(true);
   };
@@ -46,16 +48,20 @@ export default function SidebarItem({
   const opacity = isDragging ? 0.4 : 1;
 
   return (
-    <div ref={drag} style={{ ...style, opacity }} data-testid={`box`}>
-      <Typography
-        variant="h6"
-        noWrap
-        component="div"
+    <div ref={drag} data-testid={`box`}>
+      <Button
+        sx={{
+          bgcolor: "white",
+          width: "100%",
+          fontWeight: "200",
+        }}
+        endIcon={Icon ? <Icon /> : undefined}
+        color={"inherit"}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {name}
-      </Typography>
+      </Button>
     </div>
   );
 }

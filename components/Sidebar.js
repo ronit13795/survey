@@ -4,8 +4,15 @@ import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
+import { useRouter } from "next/router";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import StarOutlineTwoToneIcon from "@mui/icons-material/StarOutlineTwoTone";
+import TextFormatIcon from "@mui/icons-material/TextFormat";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 
 export default function Sidebar({ addQuestion }) {
+  const router = useRouter();
   return (
     <div>
       <Drawer
@@ -21,6 +28,19 @@ export default function Sidebar({ addQuestion }) {
         anchor="left"
       >
         <Toolbar>
+          <Button
+            onClick={() => {
+              router.push("/");
+            }}
+            color="success"
+            variant="contained"
+            endIcon={<SendIcon />}
+          >
+            To Survey
+          </Button>
+        </Toolbar>
+        <Divider />
+        <Toolbar>
           <Typography variant="h5" noWrap component="div">
             Questions Types
           </Typography>
@@ -29,6 +49,7 @@ export default function Sidebar({ addQuestion }) {
 
         <SidebarItem
           name={"radio group"}
+          Icon={RadioButtonCheckedIcon}
           addQuestion={addQuestion}
           question={{
             elements: [
@@ -44,6 +65,7 @@ export default function Sidebar({ addQuestion }) {
         />
         <SidebarItem
           name={"rating"}
+          Icon={StarOutlineTwoToneIcon}
           addQuestion={addQuestion}
           question={{
             elements: [
@@ -59,6 +81,7 @@ export default function Sidebar({ addQuestion }) {
         />
         <SidebarItem
           name={"text"}
+          Icon={TextFormatIcon}
           addQuestion={addQuestion}
           question={{
             elements: [
