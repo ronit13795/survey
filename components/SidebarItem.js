@@ -1,16 +1,7 @@
 import { useDrag } from "react-dnd";
-import styles from "../styles/Sidebar.module.css";
 import itemTypes from "../src/sidebarItemTypes";
-
-const style = {
-  border: "1px dashed gray",
-  backgroundColor: "white",
-  padding: "0.5rem 1rem",
-  marginRight: "1.5rem",
-  marginBottom: "1.5rem",
-  cursor: "move",
-  float: "left",
-};
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
 
 export default function SidebarItem({
   name,
@@ -18,6 +9,21 @@ export default function SidebarItem({
   addQuestion,
   question,
 }) {
+  const [isHover, setIsHover] = useState(false);
+  const style = {
+    border: "1px dashed gray",
+    backgroundColor: "white",
+    padding: "0.5rem 1rem",
+    cursor: "move",
+    float: "left",
+    backgroundColor: isHover ? "#DEF5E5" : "white",
+  };
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "box",
     item: { name },
@@ -41,7 +47,15 @@ export default function SidebarItem({
 
   return (
     <div ref={drag} style={{ ...style, opacity }} data-testid={`box`}>
-      {name}
+      <Typography
+        variant="h6"
+        noWrap
+        component="div"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {name}
+      </Typography>
     </div>
   );
 }
