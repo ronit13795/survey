@@ -3,6 +3,7 @@ import { useState } from "react";
 import Question from "./Question";
 import Rating from "./Rating";
 import Text from "./Text";
+import Boolean from "./Boolean";
 
 export default function AdminPage({ questions, setQuestions, addQuestion,}) {
 
@@ -97,6 +98,18 @@ export default function AdminPage({ questions, setQuestions, addQuestion,}) {
                   requiredErrorText={question.elements[0].requiredErrorText}
                 />
               );
+            }
+            if(question.elements[0].type === "boolean"){
+              return(
+                <Boolean
+                 key={index}
+                 index={index}
+                 question={question}
+                 deleteQuestion={deleteQuestion}
+                 updateSurveyContext={updateSurveyContext}
+                 name={question.elements[0].name}
+                />
+              )
             }
           })}
 

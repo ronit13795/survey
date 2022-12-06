@@ -10,6 +10,7 @@ import SendIcon from "@mui/icons-material/Send";
 import StarOutlineTwoToneIcon from "@mui/icons-material/StarOutlineTwoTone";
 import TextFormatIcon from "@mui/icons-material/TextFormat";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import FlakyIcon from '@mui/icons-material/Flaky';
 
 export default function Sidebar({ addQuestion }) {
   const router = useRouter();
@@ -93,6 +94,20 @@ export default function Sidebar({ addQuestion }) {
               },
             ],
           }}
+        />
+        <SidebarItem
+        name={"boolean"}
+        Icon={FlakyIcon}
+        addQuestion={addQuestion}
+        question={{
+          elements: [
+            {
+              name: "",
+              type: "boolean",
+            },
+          ],
+        }}
+        
         />
 
         <Divider />
