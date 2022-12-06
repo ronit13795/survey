@@ -11,6 +11,7 @@ import StarOutlineTwoToneIcon from "@mui/icons-material/StarOutlineTwoTone";
 import TextFormatIcon from "@mui/icons-material/TextFormat";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import FlakyIcon from '@mui/icons-material/Flaky';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 export default function Sidebar({ addQuestion }) {
   const router = useRouter();
@@ -108,6 +109,19 @@ export default function Sidebar({ addQuestion }) {
           ],
         }}
         
+        />
+        <SidebarItem
+         name={"file"}
+         Icon={DescriptionIcon}
+         addQuestion={addQuestion}
+         question={{
+          elements: [
+            {
+              name: "",
+              type: "file",
+            },
+          ],
+         }}
         />
 
         <Divider />

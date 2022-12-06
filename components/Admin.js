@@ -4,6 +4,7 @@ import Question from "./Question";
 import Rating from "./Rating";
 import Text from "./Text";
 import Boolean from "./Boolean";
+import File from "./File";
 
 export default function AdminPage({ questions, setQuestions, addQuestion,}) {
 
@@ -110,6 +111,18 @@ export default function AdminPage({ questions, setQuestions, addQuestion,}) {
                  name={question.elements[0].name}
                 />
               )
+            }
+            if(question.elements[0].type === "file"){
+               return(
+               <File
+                key={index}
+                index={index}
+                question={question}
+                deleteQuestion={deleteQuestion}
+                updateSurveyContext={updateSurveyContext}
+                name={question.elements[0].name}
+              />
+               )
             }
           })}
 
