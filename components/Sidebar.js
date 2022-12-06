@@ -10,8 +10,9 @@ import SendIcon from "@mui/icons-material/Send";
 import StarOutlineTwoToneIcon from "@mui/icons-material/StarOutlineTwoTone";
 import TextFormatIcon from "@mui/icons-material/TextFormat";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import FlakyIcon from '@mui/icons-material/Flaky';
-import DescriptionIcon from '@mui/icons-material/Description';
+import FlakyIcon from "@mui/icons-material/Flaky";
+import DescriptionIcon from "@mui/icons-material/Description";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function Sidebar({ addQuestion }) {
   const router = useRouter();
@@ -97,84 +98,48 @@ export default function Sidebar({ addQuestion }) {
           }}
         />
         <SidebarItem
-        name={"boolean"}
-        Icon={FlakyIcon}
-        addQuestion={addQuestion}
-        question={{
-          elements: [
-            {
-              name: "",
-              type: "boolean",
-            },
-          ],
-        }}
-        
+          name={"boolean"}
+          Icon={FlakyIcon}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                name: "",
+                type: "boolean",
+              },
+            ],
+          }}
         />
         <SidebarItem
-         name={"file"}
-         Icon={DescriptionIcon}
-         addQuestion={addQuestion}
-         question={{
-          elements: [
-            {
-              name: "",
-              type: "file",
-            },
-          ],
-         }}
+          name={"dropdown"}
+          Icon={ArrowDropDownIcon}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                type: "dropdown",
+                title: "",
+                choices: [],
+              },
+            ],
+          }}
+        />
+        <SidebarItem
+          name={"file"}
+          Icon={DescriptionIcon}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                name: "",
+                type: "file",
+              },
+            ],
+          }}
         />
 
         <Divider />
       </Drawer>
     </div>
-
-    // <div className={styles.sidebarContainer}>
-    //   <div className={styles.sidebar}>
-    //     <SidebarItem
-    //       name={"radio group"}
-    //       addQuestion={addQuestion}
-    //       question={{
-    //         elements: [
-    //           {
-    //             type: "radiogroup",
-    //             name: "",
-    //             title: "",
-    //             choices: [],
-    //             correctAnswer: "",
-    //           },
-    //         ],
-    //       }}
-    //     />
-    //     <SidebarItem
-    //       name={"rating"}
-    //       addQuestion={addQuestion}
-    //       question={{
-    //         elements: [
-    //           {
-    //             type: "rating",
-    //             name: "",
-    //             title: "",
-    //             rateMin: "",
-    //             rateMax: "",
-    //           },
-    //         ],
-    //       }}
-    //     />
-    //     <SidebarItem
-    //       name={"text"}
-    //       addQuestion={addQuestion}
-    //       question={{
-    //         elements: [
-    //           {
-    //             name: "",
-    //             type: "text",
-    //             isRequired: true,
-    //             requiredErrorText: "Value cannot be empty",
-    //           },
-    //         ],
-    //       }}
-    //     />
-    //   </div>
-    // </div>
   );
 }

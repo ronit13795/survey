@@ -19,25 +19,14 @@ export default function Admin() {
 
   return (
     <Fragment>
-      <header className={style.header}>
-        <button
-          onClick={() => {
-            router.push("/");
-          }}
-          className={style.btn}
-        >
-          survey
-        </button>
-      </header>
       <DndProvider backend={HTML5Backend}>
-        <Sidebar addQuestion={addQuestion}/>
+        <Sidebar addQuestion={addQuestion} />
         <AdminPage
           addQuestion={addQuestion}
           setQuestions={setQuestions}
-          questions={questions}/>
-        <SidebarRight 
-          setQuestions={setQuestions}
-          questions={questions}/>
+          questions={questions}
+        />
+        <SidebarRight setQuestions={setQuestions} questions={questions} />
       </DndProvider>
     </Fragment>
   );
