@@ -94,13 +94,13 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
   };
 
   return (
-    <div>
+    <div className='right-bar-side-container'>
       <Drawer
         sx={{
-          width: 240,
+          width: 310,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            width: 240,
+            width: 310,
             boxSizing: "border-box",
           },
         }}
@@ -108,16 +108,17 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
         anchor="right"
       >
         
-        <Divider />
+
         <Toolbar>
-          <Typography variant="h5" noWrap component="div">
+          <Typography variant="h5" noWrap component="div" style={{marginLeft:'75px'}}>
             Properties
           </Typography>
         </Toolbar>
-        <Divider />
-
+        <hr />
+        
         <Divider>
         <Toolbar>
+          
           <input
               value={title}
               onChange={(e) => {
@@ -172,29 +173,28 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
             </Toolbar>
           </Divider>
 
-              <hr />
+          <hr />
 
-              <Divider>
-                <Toolbar>
-                  <p>Number Of Question: {questions.length}</p>
-                </Toolbar>
-              </Divider>
+          <Divider>
+            <Toolbar>
+              <p>Number Of Question: {questions.length}</p>
+            </Toolbar>
+          </Divider>
 
-              <hr />
+          <hr />
 
-          <Toolbar>
-          <Button style={{margin: '10px'}}
+          <Toolbar style={{bottom:'0', position:'fixed'}}>
+          <Button style={{margin: '25px'}}
             onClick={() => {
               sendSurvey();
             }}
             color="success"
             variant="contained"
-            // endIcon={<SendIcon />}
           >
             Save
           </Button>
 
-          <Button style={{margin: '10px'}}
+          <Button style={{margin: '25px'}}
             onClick={() => {
               let confrimDelete = confirm("Are sure you want to delete the survey?");
               if(confrimDelete) 
@@ -202,7 +202,6 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
             }}
             color="success"
             variant="contained"
-            // endIcon={<SendIcon />}
           >
             Cancel
           </Button>

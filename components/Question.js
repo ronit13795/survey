@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function Question({
   question,
@@ -50,13 +52,14 @@ export default function Question({
     <div className="container">
       {/* <div className="space-color"></div> */}
       <div className="question-container">
-        <h2>Question {index + 1} -radiogroup type</h2>
-
+          <header>
+              <h2>Question {index + 1} - Radiogroup Type</h2>
+          </header>
         <input
           onChange={(e) => {
             setName(e.target.value);
           }}
-          placeholder="Name for the question"
+          placeholder="Question's name"
           value={namex}
         />
         <input
@@ -101,14 +104,17 @@ export default function Question({
           }}
           placeholder="Correct answer"
         />
-        <button
-          type="button"
-          onClick={() => {
-            deleteQuestion(index);
-          }}
-        >
-          x
-        </button>
+
+           <button
+            type="button"
+            onClick={() => {
+              deleteQuestion(index);
+            }}
+          >
+            <DeleteIcon />      
+          </button>
+          
+
       </div>
     </div>
   );
