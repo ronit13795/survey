@@ -1,0 +1,17 @@
+.right-bar-side-container input {
+  border: none;
+  outline-color: white;
+  padding: 10px;
+  font-size: 18px;
+}
+
+p {
+  color: gray;
+  margin-right: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+.css-9mgopn-MuiDivider-root{
+  border-width: 0;
+}
