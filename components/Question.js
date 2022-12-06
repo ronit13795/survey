@@ -48,7 +48,7 @@ export default function Question({
 
   return (
     <div className="container">
-      <div className="space-color"></div>
+      {/* <div className="space-color"></div> */}
       <div className="question-container">
         <h2>Question {index + 1} -radiogroup type</h2>
 

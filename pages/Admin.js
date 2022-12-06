@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { useRouter } from "next/router";
 import style from "../styles/header.module.css";
 import Sidebar from "../components/Sidebar";
+import SidebarRight from "../components/SidebarRight";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useState, useEffect } from "react";
@@ -29,12 +30,14 @@ export default function Admin() {
         </button>
       </header>
       <DndProvider backend={HTML5Backend}>
-        <Sidebar addQuestion={addQuestion} />
+        <Sidebar addQuestion={addQuestion}/>
         <AdminPage
           addQuestion={addQuestion}
           setQuestions={setQuestions}
-          questions={questions}
-        />
+          questions={questions}/>
+        <SidebarRight 
+          setQuestions={setQuestions}
+          questions={questions}/>
       </DndProvider>
     </Fragment>
   );
