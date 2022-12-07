@@ -6,7 +6,7 @@ import Text from "./Text";
 import Boolean from "./Boolean";
 import File from "./File";
 import DropDown from "./DropDown";
-import ImagePicker from "./imagepicker";
+import ImagePicker from "./Imagepicker";
 import { color } from "@mui/system";
 
 export default function AdminPage({ questions, setQuestions, addQuestion }) {
@@ -23,14 +23,12 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
   let backgroundColor = "#ffffff";
   let border = "hidden";
 
-
   if (isActive) {
-    backgroundColor = "#d2f7e5"; 
-    border = "2px dashed gray"
+    backgroundColor = "#d2f7e5";
+    border = "2px dashed gray";
   } else if (canDrop) {
     backgroundColor = "#feffed";
-    border = "2px dashed gray"
-
+    border = "2px dashed gray";
   }
 
   const updateSurveyContext = (indexToUpdate, updatedQuestion) => {
@@ -52,7 +50,11 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
   };
 
   return (
-    <div className="admin-container" ref={drop} style={{ backgroundColor, border }}>
+    <div
+      className="admin-container"
+      ref={drop}
+      style={{ backgroundColor, border }}
+    >
       <header>
         <h1>Create a Survey</h1>
       </header>
