@@ -1,5 +1,7 @@
 import dbConnect from "../../lib/dbConnect";
 import adminModel from "../../models/admin";
+import jwt from "jsonwebtoken";
+require("dotenv").config();
 
 async function adminDetails(req, res) {
   await dbConnect();
@@ -11,7 +13,11 @@ async function adminDetails(req, res) {
     });
 
     if (myAdmin) {
-      res.json({ success: true });
+      const accessToken = jwt.sign(
+        { userName: req.body["user-name"] },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.json({ success: true, accessToken });
     } else {
       res.json({ success: false });
     }

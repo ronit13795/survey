@@ -1,5 +1,4 @@
 import { useDrag } from "react-dnd";
-import itemTypes from "../src/sidebarItemTypes";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Button from "@mui/material/Button";
@@ -32,7 +31,6 @@ export default function SidebarItem({
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
-        const questionObj = itemTypes[questionType];
         (() => {
           addQuestion(question);
         })();

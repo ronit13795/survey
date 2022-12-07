@@ -15,7 +15,6 @@ export default function Rating({
   const [title, setTitle] = useState(question.elements[0].title || "");
   const [rateMin, setRateMin] = useState(question.elements[0].rateMin);
   const [rateMax, setRateMax] = useState(question.elements[0].rateMax);
-  console.log(question.elements[0].rateMin);
 
   useEffect(() => {
     updateSurveyContext(index, {

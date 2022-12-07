@@ -6,7 +6,7 @@ import Sidebar from "../components/Sidebar";
 import SidebarRight from "../components/SidebarRight";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Admin() {
   const router = useRouter();

@@ -20,8 +20,7 @@ export default function Login() {
       })
       .then((json) => {
         if (json.success) {
-          localStorage.setItem("user-name", userName);
-          localStorage.setItem("password", pw);
+          localStorage.setItem("accessToken", json.accessToken);
           return router.push("/Admin");
         }
         return alert("invalid credentials");

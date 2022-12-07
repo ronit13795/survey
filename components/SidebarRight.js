@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -6,9 +6,11 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 
-
-export default function SidebarRight({questions, setQuestions, numOfQuestions}) {
-
+export default function SidebarRight({
+  questions,
+  setQuestions,
+  numOfQuestions,
+}) {
   const [title, setTitleName] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
@@ -59,15 +61,13 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
   };
 
   const sendSurvey = () => {
-    
     const survey = buildSurvey(questions);
     fetch("/api/updateSurvey", {
       method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "user-name": localStorage.getItem("user-name"),
-        password: localStorage.getItem("password"),
+        "access-token": localStorage.getItem("accessToken"),
       },
       body: JSON.stringify(survey),
     })
@@ -94,7 +94,7 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
   };
 
   return (
-    <div className='right-bar-side-container'>
+    <div className="right-bar-side-container">
       <Drawer
         sx={{
           width: 310,
@@ -107,19 +107,21 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
         variant="permanent"
         anchor="right"
       >
-        
-
         <Toolbar>
-          <Typography variant="h5" noWrap component="div" style={{marginLeft:'75px'}}>
+          <Typography
+            variant="h5"
+            noWrap
+            component="div"
+            style={{ marginLeft: "75px" }}
+          >
             Properties
           </Typography>
         </Toolbar>
         <hr />
-        
+
         <Divider>
-        <Toolbar>
-          
-          <input
+          <Toolbar>
+            <input
               value={title}
               onChange={(e) => {
                 setTitleName(e.target.value);
@@ -127,13 +129,13 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
               type="text"
               placeholder="Survey Title..."
             />
-            </Toolbar>
-          </Divider>
+          </Toolbar>
+        </Divider>
 
-              <hr/>
+        <hr />
 
-          <Divider>
-            <Toolbar>
+        <Divider>
+          <Toolbar>
             <input
               value={maxTimeToFinishPage}
               onChange={(e) => {
@@ -146,17 +148,14 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
                 }
               }}
               placeholder="Time for each question..."
-            /> 
+            />
+          </Toolbar>
+        </Divider>
 
-              
-            
-            </Toolbar>
-          </Divider>
+        <hr />
 
-          <hr/>
-
-          <Divider>
-            <Toolbar>
+        <Divider>
+          <Toolbar>
             <input
               value={maxTimeToFinish}
               onChange={(e) => {
@@ -170,21 +169,22 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
               }}
               placeholder="Time for the entire survey..."
             />
-            </Toolbar>
-          </Divider>
+          </Toolbar>
+        </Divider>
 
-          <hr />
+        <hr />
 
-          <Divider>
-            <Toolbar>
-              <p>Number Of Question: {questions.length}</p>
-            </Toolbar>
-          </Divider>
+        <Divider>
+          <Toolbar>
+            <p>Number Of Question: {questions.length}</p>
+          </Toolbar>
+        </Divider>
 
-          <hr />
+        <hr />
 
-          <Toolbar style={{bottom:'0', position:'fixed'}}>
-          <Button className='barBtn' 
+        <Toolbar style={{ bottom: "0", position: "fixed" }}>
+          <Button
+            className="barBtn"
             onClick={() => {
               sendSurvey();
             }}
@@ -194,13 +194,14 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
             Save
           </Button>
 
-          <Button className='barBtn-discard'
+          <Button
             onClick={() => {
-              let confrimDelete = confirm("Are sure you want to delete the survey?");
-              if(confrimDelete) 
-                resetAll()     
+              let confirmDelete = confirm(
+                "Are sure you want to delete the survey?"
+              );
+              if (confirmDelete) resetAll();
             }}
-            color="success"
+            color="error"
             variant="contained"
           >
             Discard
@@ -210,7 +211,5 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
         <Divider />
       </Drawer>
     </div>
-
-    
   );
 }
