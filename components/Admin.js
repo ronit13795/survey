@@ -6,8 +6,6 @@ import Text from "./Text";
 import Boolean from "./Boolean";
 import File from "./File";
 import DropDown from "./DropDown";
-import ImagePicker from "./Imagepicker";
-import { color } from "@mui/system";
 
 export default function AdminPage({ questions, setQuestions, addQuestion }) {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({

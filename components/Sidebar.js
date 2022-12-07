@@ -13,7 +13,7 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import FlakyIcon from "@mui/icons-material/Flaky";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ImageIcon from '@mui/icons-material/Image';
+import ImageIcon from "@mui/icons-material/Image";
 
 export default function Sidebar({ addQuestion }) {
   const router = useRouter();
