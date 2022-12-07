@@ -15,3 +15,9 @@ p {
 .css-9mgopn-MuiDivider-root{
   border-width: 0;
 }
+
+.barBtn {
+  margin: 20px;
+  font-size: 20px;
+}
+

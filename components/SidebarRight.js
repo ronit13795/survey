@@ -184,7 +184,7 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
           <hr />
 
           <Toolbar style={{bottom:'0', position:'fixed'}}>
-          <Button style={{margin: '25px'}}
+          <Button className='barBtn' 
             onClick={() => {
               sendSurvey();
             }}
@@ -194,7 +194,7 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
             Save
           </Button>
 
-          <Button style={{margin: '25px'}}
+          <Button className='barBtn'
             onClick={() => {
               let confrimDelete = confirm("Are sure you want to delete the survey?");
               if(confrimDelete) 
