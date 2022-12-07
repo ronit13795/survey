@@ -194,7 +194,7 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
             Save
           </Button>
 
-          <Button className='barBtn'
+          <Button className='barBtn-discard'
             onClick={() => {
               let confrimDelete = confirm("Are sure you want to delete the survey?");
               if(confrimDelete) 
@@ -203,7 +203,7 @@ export default function SidebarRight({questions, setQuestions, numOfQuestions}) 
             color="success"
             variant="contained"
           >
-            Cancel
+            Discard
           </Button>
         </Toolbar>
 

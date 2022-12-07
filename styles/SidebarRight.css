@@ -16,8 +16,13 @@ p {
   border-width: 0;
 }
 
-.barBtn {
+.barBtn, .barBtn-discard {
   margin: 20px;
-  font-size: 20px;
+  font-size: 18px;
 }
+
+.barBtn-discard {
+  background-color: red;
+}
+
 
