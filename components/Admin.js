@@ -6,6 +6,8 @@ import Text from "./Text";
 import Boolean from "./Boolean";
 import File from "./File";
 import DropDown from "./DropDown";
+import ImagePicker from "./imagepicker";
+import { color } from "@mui/system";
 
 export default function AdminPage({ questions, setQuestions, addQuestion }) {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -19,10 +21,16 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
 
   const isActive = canDrop && isOver;
   let backgroundColor = "#ffffff";
+  let border = "hidden";
+
+
   if (isActive) {
-    backgroundColor = "#d2f7e5";
+    backgroundColor = "#d2f7e5"; 
+    border = "2px dashed gray"
   } else if (canDrop) {
     backgroundColor = "#feffed";
+    border = "2px dashed gray"
+
   }
 
   const updateSurveyContext = (indexToUpdate, updatedQuestion) => {
@@ -44,7 +52,7 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
   };
 
   return (
-    <div className="admin-container" ref={drop} style={{ backgroundColor }}>
+    <div className="admin-container" ref={drop} style={{ backgroundColor, border }}>
       <header>
         <h1>Create a Survey</h1>
       </header>
@@ -126,6 +134,18 @@ export default function AdminPage({ questions, setQuestions, addQuestion }) {
           if (question.elements[0].type === "file") {
             return (
               <File
+                key={index}
+                index={index}
+                question={question}
+                deleteQuestion={deleteQuestion}
+                updateSurveyContext={updateSurveyContext}
+                name={question.elements[0].name}
+              />
+            );
+          }
+          if (question.elements[0].type === "imagePicker") {
+            return (
+              <ImagePicker
                 key={index}
                 index={index}
                 question={question}

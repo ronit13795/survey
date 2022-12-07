@@ -15,3 +15,14 @@ p {
 .css-9mgopn-MuiDivider-root{
   border-width: 0;
 }
+
+.barBtn, .barBtn-discard {
+  margin: 20px;
+  font-size: 18px;
+}
+
+.barBtn-discard {
+  background-color: red;
+}
+
+

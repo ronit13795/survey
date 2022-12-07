@@ -13,6 +13,7 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import FlakyIcon from "@mui/icons-material/Flaky";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ImageIcon from '@mui/icons-material/Image';
 
 export default function Sidebar({ addQuestion }) {
   const router = useRouter();
@@ -133,6 +134,20 @@ export default function Sidebar({ addQuestion }) {
               {
                 name: "",
                 type: "file",
+              },
+            ],
+          }}
+        />
+        <SidebarItem
+          name={"image picker"}
+          Icon={ImageIcon}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                name: "",
+                type: "imagePicker",
+                choices: [],
               },
             ],
           }}
