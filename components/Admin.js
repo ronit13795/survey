@@ -7,6 +7,7 @@ import Boolean from "./Boolean";
 import File from "./File";
 import DropDown from "./DropDown";
 import ImagePicker from "./ImagePicker";
+import Checkbox from "./Checkbox";
 
 export default function AdminPage({ questions, setQuestions }) {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -111,6 +112,19 @@ export default function AdminPage({ questions, setQuestions }) {
             if (question.elements[0].type === "dropdown") {
               return (
                 <DropDown
+                  key={index}
+                  index={index}
+                  question={question}
+                  deleteQuestion={deleteQuestion}
+                  updateSurveyContext={updateSurveyContext}
+                  titleToSHow={question.elements[0].title}
+                  choicesToShow={question.elements[0].choices}
+                />
+              );
+            }
+            if (question.elements[0].type === "checkbox") {
+              return (
+                <Checkbox
                   key={index}
                   index={index}
                   question={question}

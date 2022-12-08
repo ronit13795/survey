@@ -14,6 +14,7 @@ import FlakyIcon from "@mui/icons-material/Flaky";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ImageIcon from '@mui/icons-material/Image';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 export default function Sidebar({ addQuestion }) {
   const router = useRouter();
@@ -147,6 +148,20 @@ export default function Sidebar({ addQuestion }) {
               {
                 name: "",
                 type: "imagePicker",
+                choices: [],
+              },
+            ],
+          }}
+        />
+        <SidebarItem
+          name={"checkbox"}
+          Icon={CheckBoxIcon}
+          addQuestion={addQuestion}
+          question={{
+            elements: [
+              {
+                type: "checkbox",
+                title: "",
                 choices: [],
               },
             ],
