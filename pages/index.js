@@ -14,8 +14,8 @@ export default function Home({ survey }) {
   const router = useRouter();
   const checkDetail = () => {
     if (
-      localStorage.getItem("user-name") === "ADMIN" &&
-      localStorage.getItem("password") === "1234"
+      localStorage.getItem("accessToken") 
+      
     ) {
       return router.push("/Admin");
     }
