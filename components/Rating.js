@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 
 export default function Rating({
@@ -65,14 +66,14 @@ export default function Rating({
           }}
           placeholder="What is the maximum rating?"
         />
-        <button
-          type="button"
-          onClick={() => {
-            deleteQuestion(index);
-          }}
-        >
-          x
-        </button>
+           <button
+              type="button"
+              onClick={() => {
+                deleteQuestion(index);
+              }}
+            >
+              <DeleteIcon />      
+          </button>
       </div>
     </div>
   );

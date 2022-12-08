@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState ,useEffect} from 'react'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function File({
   question,
@@ -31,18 +32,18 @@ export default function File({
           onChange={(e) => {
             setName(e.target.value);
           }}
-          placeholder="please enter the question"
+          placeholder="Please enter the question"
           value={questionName}
         />
     
-         <button
-          type="button"
-          onClick={() => {
-            deleteQuestion(index);
-          }}
-         >
-          x
-         </button>
+          <button
+              type="button"
+              onClick={() => {
+                deleteQuestion(index);
+              }}
+            >
+              <DeleteIcon />      
+          </button>
           
                    
 

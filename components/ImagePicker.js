@@ -2,6 +2,7 @@ import React from 'react'
 import { useState ,useEffect} from 'react'
 import Link from 'next/link';
 import { Looks3 } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function ImagePicker({
   question,
@@ -58,11 +59,11 @@ export default function ImagePicker({
           onChange={(e) => {
             setName(e.target.value);
           }}
-          placeholder="please enter the question"
+          placeholder="Please enter the question"
           value={questionName}
         />
         <input
-        placeholder='please enter a link to the image'
+        placeholder='Please enter a link to the image'
         onChange={(e)=>{
             setImage1(e.target.value)
         }}
@@ -70,33 +71,33 @@ export default function ImagePicker({
       
         />
         <input
-        placeholder='please enter a link to the image'
+        placeholder='Please enter a link to the image'
         onChange={(e)=>{
             setImage2(e.target.value)
         }}
         value={image2}
         />
         <input
-        placeholder='please enter a link to the image'
+        placeholder='Please enter a link to the image'
         onChange={(e)=>{
             setImage3(e.target.value)
         }}
         />
         <input
-        placeholder='please enter a link to the image'
+        placeholder='Please enter a link to the image'
         onChange={(e)=>{
             setImage4(e.target.value)
         }}
         />
     
-         <button
-          type="button"
-          onClick={() => {
-            deleteQuestion(index);
-          }}
-         >
-          x
-         </button>
+          <button
+            type="button"
+            onClick={() => {
+              deleteQuestion(index);
+            }}
+            >
+            <DeleteIcon />      
+          </button>
           
                    
 

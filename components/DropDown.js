@@ -6,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function DropDown({
   question,
@@ -50,18 +51,18 @@ export default function DropDown({
   return (
     <div className="container">
       <div className="question-container">
-        <h2>Question {index + 1} - dropdown type </h2>
+        <h2>Question {index + 1} - Dropdown Type </h2>
         <input
           style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
-          placeholder="write here the question"
+          placeholder="Please enter the question"
           value={titleToSHow}
         />
         <FormControl sx={{ m: 1, minWidth: 320 }} disabled>
           <InputLabel id="demo-simple-select-disabled-label">
-            CHOICES...
+            Choices...
           </InputLabel>
           <Select
             labelId="demo-simple-select-disabled-label"
@@ -73,7 +74,7 @@ export default function DropDown({
             </MenuItem>
           </Select>
         </FormControl>
-        <Button
+        <Button className="add-btn"
           onClick={() => {
             setChoices([
               ...choices,
@@ -83,14 +84,14 @@ export default function DropDown({
           color="success"
           variant="contained"
         >
-          add choice
+          Add choice
         </Button>
 
         {choicesToShow.map((choice, i) => {
           return (
             <div key={i}>
               <input
-                placeholder="write your choice"
+                placeholder="Write your choice"
                 value={choicesToShow[i].text}
                 onChange={(e) => {
                   changeChoices(i, e);
@@ -101,19 +102,19 @@ export default function DropDown({
                   deleteChoice(i);
                 }}
               >
-                delete choice
+                Delete choice
               </button>
             </div>
           );
         })}
-        <button
-          type="button"
-          onClick={() => {
-            deleteQuestion(index);
-          }}
-        >
-          x
-        </button>
+           <button
+              type="button"
+              onClick={() => {
+                deleteQuestion(index);
+              }}
+            >
+              <DeleteIcon />      
+          </button>
       </div>
     </div>
   );

@@ -50,7 +50,6 @@ export default function Question({
 
   return (
     <div className="container">
-      {/* <div className="space-color"></div> */}
       <div className="question-container">
           <header>
               <h2>Question {index + 1} - Radiogroup Type</h2>

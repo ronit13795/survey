@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Text({
   question,
@@ -43,7 +44,7 @@ export default function Text({
           onChange={(e) => {
             setName(e.target.value);
           }}
-          placeholder="please enter the question"
+          placeholder="Please enter the question"
           value={questionName}
         />
 
@@ -59,14 +60,14 @@ export default function Text({
           label="Required"
         />
 
-        <button
-          type="button"
-          onClick={() => {
-            deleteQuestion(index);
-          }}
-        >
-          x
-        </button>
+          <button
+            type="button"
+            onClick={() => {
+              deleteQuestion(index);
+            }}
+            >
+            <DeleteIcon />      
+          </button>
       </div>
     </div>
   );
