@@ -181,7 +181,7 @@ export default function SidebarRight({
         </Divider>
 
         <hr />
-
+        
         <Toolbar style={{ bottom: "0", position: "fixed" }}>
           <Button
             className="barBtn"
@@ -195,6 +195,7 @@ export default function SidebarRight({
           </Button>
 
           <Button
+            className="barBtn"  
             onClick={() => {
               let confirmDelete = confirm(
                 "Are sure you want to delete the survey?"
@@ -207,7 +208,6 @@ export default function SidebarRight({
             Discard
           </Button>
         </Toolbar>
-
         <Divider />
       </Drawer>
     </div>
