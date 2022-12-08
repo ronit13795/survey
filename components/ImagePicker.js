@@ -1,8 +1,9 @@
-import React from 'react'
-import { useState ,useEffect} from 'react'
-import Link from 'next/link';
-import { Looks3 } from '@mui/icons-material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Looks3 } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FileBase64 from "react-file-base64";
 
 export default function ImagePicker({
   question,
@@ -10,98 +11,59 @@ export default function ImagePicker({
   index,
   deleteQuestion,
   name: questionName = "",
-})
- {
-    const[name,setName] = useState(question.elements[0].name || "");
-    const[image1,setImage1] = useState("")
-    const[image2,setImage2] = useState("")
-    const[image3,setImage3] = useState("")
-    const[image4,setImage4] = useState("")
- 
-   
+}) {
+  const [name, setName] = useState(question.elements[0].name || "");
+  const [files, setFiles] = useState([]);
+  const [choices, setChoices] = useState([]);
 
-    useEffect(() => {
-      console.log(question);
-        updateSurveyContext(index, {
-          elements: [
-            {
-              type: "imagePicker",
-              name,
-              choices: [
-                {
-                 "value": "lion",
-                 "imageLink":`${image1}`,
-                },
-                {
-                 "value": "giraffe",
-                 "imageLink": `${image2}`,
-                },
-                {
-                 "value": "panda",
-                 "imageLink": `${image3}`,
-                },
-                {
-                 "value": "camel",
-                 "imageLink": `${image4}`,
-                }
-               ]             
-            },
-          ],
-        });
-      },[name,image1,image2,image3,image4])
-    console.log(typeof(image1)); 
+  const getFiles = (files) => {
+    console.log(files);
+    setFiles([...files]);
+  };
+
+  useEffect(() => {
+    const updatedChoices = files.map((file, i) => {
+      return { value: `item${i}`, imageLink: file.base64 };
+    });
+    setChoices(updatedChoices);
+  }, [files]);
+
+  useEffect(() => {
+    console.log(question);
+    updateSurveyContext(index, {
+      elements: [
+        {
+          type: "imagePicker",
+          name,
+          choices: choices,
+        },
+      ],
+    });
+  }, [name, choices]);
+
   return (
     <div className="container">
-     <div className="question-container">
-       <h2>Question {index + 1} - image picker type </h2>
-
-       <input
-          onChange={(e) => {
-            setName(e.target.value);
+      <div className="question-container">
+        <h2>Question {index + 1} - image picker type </h2>
+        <FileBase64 multiple={true} onDone={getFiles} />
+        {files.map((file, i) => {
+          return (
+            <img
+              style={{ height: "15%", width: "15%", margin: "1px" }}
+              src={file.base64}
+              key={i}
+            />
+          );
+        })}
+        <button
+          type="button"
+          onClick={() => {
+            deleteQuestion(index);
           }}
-          placeholder="Please enter the question"
-          value={questionName}
-        />
-        <input
-        placeholder='Please enter a link to the image'
-        onChange={(e)=>{
-            setImage1(e.target.value)
-        }}
-        value={image1}
-      
-        />
-        <input
-        placeholder='Please enter a link to the image'
-        onChange={(e)=>{
-            setImage2(e.target.value)
-        }}
-        value={image2}
-        />
-        <input
-        placeholder='Please enter a link to the image'
-        onChange={(e)=>{
-            setImage3(e.target.value)
-        }}
-        />
-        <input
-        placeholder='Please enter a link to the image'
-        onChange={(e)=>{
-            setImage4(e.target.value)
-        }}
-        />
-    
-          <button
-            type="button"
-            onClick={() => {
-              deleteQuestion(index);
-            }}
-            >
-            <DeleteIcon />      
-          </button>
-          
-                   
-
-     </div>
+        >
+          <DeleteIcon />
+        </button>
+      </div>
     </div>
-  )
+  );
 }
