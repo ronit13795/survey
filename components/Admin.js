@@ -20,7 +20,7 @@ export default function AdminPage({ questions, setQuestions }) {
 
   const isActive = canDrop && isOver;
   let backgroundColor = "#ffffff";
-  let border = "0.7px dashed";
+  let border = "";
   let instructions = "drag questions";
 
   if (isActive) {
