@@ -30,4 +30,12 @@ async function updateSurvey(req, res) {
   res.json({ success: false });
 }
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "10mb",
+    },
+  },
+};
+
 export default updateSurvey;
