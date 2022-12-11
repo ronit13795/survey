@@ -10,6 +10,7 @@ export default function SidebarRight({
   questions,
   setQuestions,
   numOfQuestions,
+  addPage,
 }) {
   const [title, setTitleName] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
@@ -177,6 +178,20 @@ export default function SidebarRight({
         <Divider>
           <Toolbar>
             <p>Number Of Question: {questions.length}</p>
+          </Toolbar>
+        </Divider>
+
+        <hr />
+        <Divider>
+          <Toolbar>
+            <Button
+              size="small"
+              onClick={() => {
+                addPage();
+              }}
+            >
+              add page
+            </Button>
           </Toolbar>
         </Divider>
 

@@ -8,8 +8,14 @@ import File from "./File";
 import DropDown from "./DropDown";
 import ImagePicker from "./ImagePicker";
 import Checkbox from "./Checkbox";
+import Page from "./Page";
 
-export default function AdminPage({ questions, setQuestions }) {
+export default function AdminPage({
+  questions,
+  setQuestions,
+  pages,
+  deletePage,
+}) {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "box",
     drop: () => ({ name: "Dustbin" }),
@@ -174,6 +180,9 @@ export default function AdminPage({ questions, setQuestions }) {
             }
           })}
         </div>
+        {pages.map((page, index) => {
+          return <Page index={index} key={index} deletePage={deletePage} />;
+        })}
       </div>
     </div>
   );

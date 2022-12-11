@@ -11,10 +11,22 @@ import { useState } from "react";
 export default function Admin() {
   const router = useRouter();
   const [questions, setQuestions] = useState([]);
+  const [pages, setPages] = useState([{ elements: [] }]);
 
   const addQuestion = (question) => {
     const copyQuestion = { ...question };
     setQuestions((questions) => [...questions, copyQuestion]);
+  };
+
+  const addPage = () => {
+    setPages([...pages, { elements: [] }]);
+  };
+
+  const deletePage = (index) => {
+    const updatedPages = pages.filter((page, i) => {
+      return index != i;
+    });
+    setPages(updatedPages);
   };
 
   return (
@@ -25,9 +37,16 @@ export default function Admin() {
           addQuestion={addQuestion}
           setQuestions={setQuestions}
           questions={questions}
+          addPage={addPage}
+          pages={pages}
+          deletePage={deletePage}
         />
-        <SidebarRight setQuestions={setQuestions} questions={questions} />
       </DndProvider>
+      <SidebarRight
+        setQuestions={setQuestions}
+        questions={questions}
+        addPage={addPage}
+      />
     </Fragment>
   );
 }
