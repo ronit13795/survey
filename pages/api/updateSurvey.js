@@ -17,14 +17,9 @@ async function updateSurvey(req, res) {
     } catch (err) {
       return res.json({ success: false, msg: "invalid token" });
     }
-    let survey = await surveyModel.find();
+   
     let newSurvey = req.body;
-    if (!survey.length) {
-      let survey = new surveyModel(newSurvey);
-      survey = await survey.save();
-      return res.json({ success: true });
-    }
-    await surveyModel.update({ _id: survey[0]._id }, newSurvey);
+    await surveyModel.insertMany(newSurvey);
     return res.json({ success: true });
   }
   res.json({ success: false });
