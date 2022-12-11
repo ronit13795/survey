@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 const adminSchema = new mongoose.Schema({
-  userName: String,
-  password: String
+  email: String,
+  password: String,
+  role: String
 });
 
 module.exports =
