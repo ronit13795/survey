@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from "react";
+import { useRouter } from "next/router";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -27,9 +29,38 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+
+
 export default function SignUp() {
+
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState(""); 
+  const router = useRouter();
+
+  const checkAdminCredentials = () => {
+    fetch("api/addAdmin", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email, password: pw }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        if (json.success) {
+          localStorage.setItem("accessToken", json.accessToken);
+          return router.push("/Login");
+        }
+      });
+  };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    checkAdminCredentials()
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
@@ -59,6 +90,9 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                  }}
                   required
                   fullWidth
                   id="email"
@@ -69,6 +103,9 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                onChange={(e) => {
+                    setPw(e.target.value)
+                  }}
                   required
                   fullWidth
                   name="password"
