@@ -32,6 +32,14 @@ export default function Home({ survey }) {
         >
           Admin
         </button>
+        <button
+          onClick={() => {
+            return router.push("/SignUp");
+          }}
+          className={style.btn}
+        >
+          Sign Up
+        </button>
       </header>
       <DynamicForm survey={survey} />
     </Fragment>

@@ -5,10 +5,9 @@
 
 .login-container {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.61);
   width: 400px;
   margin: 0 auto;
-  margin-top: 10%;
+  margin-top: 2%;
   padding: 60px;
   text-align: center;
   border-radius: 10px;
@@ -33,11 +32,12 @@
 .input-section button{
   width: 262px;
   margin-top: 50px;
-  background-color: white;
-  color: #19b394;
+  background-color: #19b394;
+  color: white;
 }
 
 .input-section button:hover{
-  border: 2px solid #19b394;
+  background-color: #1976d2;
+  cursor: pointer;
 }
 

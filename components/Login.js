@@ -30,7 +30,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <header>
-        <h1>Admin Center</h1>
+        <h1>Sign In</h1>
       </header>
 
       <div className="input-section">
@@ -55,7 +55,7 @@ export default function Login() {
             type="password"
             placeholder="Password"
           />
-          <button type="submit">Login</button>
+          <button type="submit">Sign in</button>
         </form>
       </div>
     </div>
