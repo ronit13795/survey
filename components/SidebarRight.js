@@ -213,6 +213,22 @@ const userName = creator.userName
         <hr/>
         {surveyPassword()}
 
+        
+
+        <Divider>
+          <Toolbar>
+            <Button
+            onClick={()=>{
+              router.push('/MySurveys')
+            }}
+            color="success"
+            variant="contained"
+            >
+              My Surveys
+            </Button>
+          </Toolbar>
+        </Divider>
+
         <Toolbar style={{ bottom: "0", position: "fixed" }}>
           <Button
             className="barBtn"
