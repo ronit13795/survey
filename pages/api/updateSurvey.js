@@ -18,7 +18,8 @@ async function updateSurvey(req, res) {
       return res.json({ success: false, msg: "invalid token" });
     }
    
-    let newSurvey = req.body;
+    let newSurvey = req.body
+    //  let myUser = jwt.decode(token)
     await surveyModel.insertMany(newSurvey);
     return res.json({ success: true });
   }
