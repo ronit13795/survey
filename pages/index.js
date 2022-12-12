@@ -52,6 +52,6 @@ export async function getServerSideProps() {
 
 
   return {
-    props: { survey: JSON.parse(JSON.stringify(mySurvey[0])) },
+    props: { survey: JSON.parse(JSON.stringify(mySurvey)) },
   };
 }
