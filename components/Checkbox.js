@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Checkbox({
   question,
@@ -15,9 +15,10 @@ export default function Checkbox({
   deleteQuestion,
   titleToSHow,
   choicesToShow,
+  pageIndex,
 }) {
-  const [title, setTitle] = useState(question.elements[0].title);
-  const [choices, setChoices] = useState(question.elements[0].choices);
+  const [title, setTitle] = useState(question.title);
+  const [choices, setChoices] = useState(question.choices);
 
   const changeChoices = (i, e) => {
     const updatedChoices = choices.map((choice, index) => {
@@ -37,15 +38,16 @@ export default function Checkbox({
   };
 
   useEffect(() => {
-    updateSurveyContext(index, {
-      elements: [
-        {
-          type: "checkbox",
-          title,
-          choices,
-        },
-      ],
-    });
+    updateSurveyContext(
+      pageIndex,
+      index,
+
+      {
+        type: "checkbox",
+        title,
+        choices,
+      }
+    );
   }, [title, choices]);
 
   return (
@@ -68,13 +70,11 @@ export default function Checkbox({
             labelId="demo-simple-select-disabled-label"
             id="demo-simple-select-disabled"
             label="Age"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-          </Select>
+            value=""
+          ></Select>
         </FormControl>
-        <Button className="add-btn"
+        <Button
+          className="add-btn"
           onClick={() => {
             setChoices([
               ...choices,
@@ -107,14 +107,14 @@ export default function Checkbox({
             </div>
           );
         })}
-           <button
-              type="button"
-              onClick={() => {
-                deleteQuestion(index);
-              }}
-            >
-              <DeleteIcon />      
-          </button>
+        <button
+          type="button"
+          onClick={() => {
+            deleteQuestion(pageIndex, index);
+          }}
+        >
+          <DeleteIcon />
+        </button>
       </div>
     </div>
   );

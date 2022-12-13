@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Question({
   question,
-  updateSurveyContext,
   index,
-  deleteQuestion,
   name: namex = "",
   titleToSHow = "",
   choice1 = "",
@@ -15,45 +12,41 @@ export default function Question({
   choice3 = "",
   choice4 = "",
   answer = "",
+  pageIndex,
+  updateSurveyContext,
+  deleteQuestion,
 }) {
-  const [name, setName] = useState(question.elements[0].name || "");
-  const [title, setTitle] = useState(question.elements[0].title || "");
-  const [choice_1, setChoice_1] = useState(
-    question.elements[0].choices[0] || ""
-  );
-  const [choice_2, setChoice_2] = useState(
-    question.elements[0].choices[1] || ""
-  );
-  const [choice_3, setChoice_3] = useState(
-    question.elements[0].choices[2] || ""
-  );
-  const [choice_4, setChoice_4] = useState(
-    question.elements[0].choices[3] || ""
-  );
+  const [name, setName] = useState(question.name || "");
+  const [title, setTitle] = useState(question.title || "");
+  const [choice_1, setChoice_1] = useState(question.choices[0] || "");
+  const [choice_2, setChoice_2] = useState(question.choices[1] || "");
+  const [choice_3, setChoice_3] = useState(question.choices[2] || "");
+  const [choice_4, setChoice_4] = useState(question.choices[3] || "");
   const [correctAnswer, setCorrectAnswer] = useState(
-    question.elements[0].correctAnswer || ""
+    question.correctAnswer || ""
   );
 
   useEffect(() => {
-    updateSurveyContext(index, {
-      elements: [
-        {
-          type: "radiogroup",
-          name,
-          title,
-          choices: [choice_1, choice_2, choice_3, choice_4],
-          correctAnswer,
-        },
-      ],
-    });
+    updateSurveyContext(
+      pageIndex,
+      index,
+
+      {
+        type: "radiogroup",
+        name,
+        title,
+        choices: [choice_1, choice_2, choice_3, choice_4],
+        correctAnswer,
+      }
+    );
   }, [name, title, choice_1, choice_2, choice_3, choice_4, correctAnswer]);
 
   return (
     <div className="container">
       <div className="question-container">
-          <header>
-              <h2>Question {index + 1} - Radiogroup Type</h2>
-          </header>
+        <header>
+          <h2>Question {index + 1} - Radiogroup Type</h2>
+        </header>
         <input
           onChange={(e) => {
             setName(e.target.value);
@@ -104,16 +97,14 @@ export default function Question({
           placeholder="Correct answer"
         />
 
-           <button
-            type="button"
-            onClick={() => {
-              deleteQuestion(index);
-            }}
-          >
-            <DeleteIcon />      
-          </button>
-          
-
+        <button
+          type="button"
+          onClick={() => {
+            deleteQuestion(pageIndex, index);
+          }}
+        >
+          <DeleteIcon />
+        </button>
       </div>
     </div>
   );

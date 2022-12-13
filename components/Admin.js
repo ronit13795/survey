@@ -15,59 +15,40 @@ export default function AdminPage({
   setQuestions,
   pages,
   deletePage,
+  setPages,
 }) {
-  const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: "box",
-    drop: () => ({ name: "Dustbin" }),
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
-  }));
-
-  const isActive = canDrop && isOver;
-  let backgroundColor = "#ffffff";
-  let border = "";
-  let instructions = "drag questions";
-
-  if (isActive) {
-    backgroundColor = "#d2f7e5";
-    instructions = "can release :)";
-    border = "2px dashed gray";
-  } else if (canDrop) {
-    instructions = "Drag here";
-    backgroundColor = "#feffed";
-    border = "2px dashed gray";
-  }
-
-  const updateSurveyContext = (indexToUpdate, updatedQuestion) => {
-    const updateQuestions = questions.map((question, index) => {
-      if (indexToUpdate === index) {
-        return updatedQuestion;
+  const updateSurveyContext = (pageIndex, indexToUpdate, updatedQuestion) => {
+    const updateQuestions = pages.map((page, index) => {
+      if (pageIndex === index) {
+        page.elements[indexToUpdate] = updatedQuestion;
+        return page;
       }
-      return question;
+      return page;
     });
-    setQuestions([...updateQuestions]);
+    setPages([...updateQuestions]);
   };
 
-  const deleteQuestion = (indexToDelete) => {
-    const updateQuestions = questions.filter((question, index) => {
-      return index !== indexToDelete;
+  const deleteQuestion = (pageIndex, questionIndex) => {
+    const updateQuestions = pages.map((page, index) => {
+      if (pageIndex === index) {
+        const updatedQuestionsInThePage = page.elements.filter(
+          (question, i) => {
+            return questionIndex !== i;
+          }
+        );
+        return { ...page, elements: [...updatedQuestionsInThePage] };
+      }
+      return page;
     });
 
-    setQuestions([...updateQuestions]);
+    setPages([...updateQuestions]);
   };
 
   return (
     <div>
-      <div
-        className="admin-container"
-        ref={drop}
-        style={{ backgroundColor, border }}
-      >
-        <h3>{instructions}</h3>
+      <div className="admin-container">
         <div>
-          {questions.map((question, index) => {
+          {/* questions.map((question, index) => {
             if (question.elements[0].type === "radiogroup") {
               return (
                 <Question
@@ -178,10 +159,19 @@ export default function AdminPage({
                 />
               );
             }
-          })}
+          })*/}
         </div>
         {pages.map((page, index) => {
-          return <Page index={index} key={index} deletePage={deletePage} />;
+          return (
+            <Page
+              index={index}
+              key={index}
+              deletePage={deletePage}
+              page={page}
+              updateSurveyContext={updateSurveyContext}
+              deleteQuestion={deleteQuestion}
+            />
+          );
         })}
       </div>
     </div>

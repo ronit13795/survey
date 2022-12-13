@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 export default function SidebarRight({
   questions,
   setQuestions,
-  numOfQuestions,
+  pages,
   addPage,
 }) {
   const [title, setTitleName] = useState("");
@@ -34,7 +34,7 @@ export default function SidebarRight({
       ],
     };
 
-    let pages = [firstPage, ...questions];
+    let completePages = [firstPage, ...pages];
 
     const surveyPlaceholder = {
       title: title || "empty title",
@@ -44,7 +44,7 @@ export default function SidebarRight({
       maxTimeToFinish: Number(maxTimeToFinish) || 25,
       firstPageIsStarted: true,
       startSurveyText: "Start Quiz",
-      pages,
+      pages: completePages,
       completedHtml: "<h4>thank you for your time.</h4>",
       // completedHtmlOnCondition: [
       //   {
@@ -92,6 +92,18 @@ export default function SidebarRight({
     setTimeFinish("");
     setTimePage("");
     setQuestions([]);
+  };
+
+  const questionsSum = () => {
+    let counter = 0;
+    pages
+      .map((page) => {
+        return page.elements.length;
+      })
+      .forEach((length) => {
+        counter += length;
+      });
+    return counter;
   };
 
   return (
@@ -177,7 +189,7 @@ export default function SidebarRight({
 
         <Divider>
           <Toolbar>
-            <p>Number Of Question: {questions.length}</p>
+            <p>Number Of Question: {questionsSum()} </p>
           </Toolbar>
         </Divider>
 

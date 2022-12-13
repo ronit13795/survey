@@ -13,10 +13,10 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import FlakyIcon from "@mui/icons-material/Flaky";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ImageIcon from '@mui/icons-material/Image';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import ImageIcon from "@mui/icons-material/Image";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-export default function Sidebar({ addQuestion }) {
+export default function Sidebar({ addQuestion, setPages }) {
   const router = useRouter();
   return (
     <div>
@@ -55,116 +55,90 @@ export default function Sidebar({ addQuestion }) {
         <SidebarItem
           name={"radio group"}
           Icon={RadioButtonCheckedIcon}
-          addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                type: "radiogroup",
-                name: "",
-                title: "",
-                choices: [],
-                correctAnswer: "",
-              },
-            ],
+            type: "radiogroup",
+            name: "",
+            title: "",
+            choices: [],
+            correctAnswer: "",
           }}
         />
         <SidebarItem
           name={"rating"}
           Icon={StarOutlineTwoToneIcon}
-          addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                type: "rating",
-                name: "",
-                title: "",
-                rateMin: "",
-                rateMax: "",
-              },
-            ],
+            type: "rating",
+            name: "",
+            title: "",
+            rateMin: "",
+            rateMax: "",
           }}
         />
         <SidebarItem
           name={"text"}
           Icon={TextFormatIcon}
           addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                name: "",
-                type: "text",
-                isRequired: true,
-                requiredErrorText: "Value cannot be empty",
-              },
-            ],
+            name: "",
+            type: "text",
+            isRequired: true,
+            requiredErrorText: "Value cannot be empty",
           }}
         />
         <SidebarItem
           name={"boolean"}
           Icon={FlakyIcon}
           addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                name: "",
-                type: "boolean",
-              },
-            ],
+            name: "",
+            type: "boolean",
           }}
         />
         <SidebarItem
           name={"dropdown"}
           Icon={ArrowDropDownIcon}
           addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                type: "dropdown",
-                title: "",
-                choices: [],
-              },
-            ],
+            type: "dropdown",
+            title: "",
+            choices: [],
           }}
         />
         <SidebarItem
           name={"file"}
           Icon={DescriptionIcon}
           addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                name: "",
-                type: "file",
-              },
-            ],
+            name: "",
+            type: "file",
           }}
         />
         <SidebarItem
           name={"image picker"}
           Icon={ImageIcon}
           addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                name: "",
-                type: "imagePicker",
-                choices: [],
-              },
-            ],
+            name: "",
+            type: "imagePicker",
+            choices: [],
           }}
         />
         <SidebarItem
           name={"checkbox"}
           Icon={CheckBoxIcon}
           addQuestion={addQuestion}
+          setPages={setPages}
           question={{
-            elements: [
-              {
-                type: "checkbox",
-                title: "",
-                choices: [],
-              },
-            ],
+            type: "checkbox",
+            title: "",
+            choices: [],
           }}
         />
 
