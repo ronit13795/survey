@@ -11,16 +11,17 @@ import jwt from "jsonwebtoken";
 export default function SidebarRight({
   questions,
   setQuestions,
-  numOfQuestions,
+  pages,
+  addPage,
 }) {
   const [title, setTitleName] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
-  const [surveyPw,setSurveyPw] = useState("");
-  const [showSurveyPassword,setShowSurveyPassword] = useState(false);
+  const [surveyPw, setSurveyPw] = useState("");
+  const [showSurveyPassword, setShowSurveyPassword] = useState(false);
 
-const creator = jwt.decode(localStorage.getItem("accessToken"));
-const userName = creator.userName
+  const creator = jwt.decode(localStorage.getItem("accessToken"));
+  const userName = creator.userName;
   const router = useRouter();
 
   const buildSurvey = () => {
@@ -39,7 +40,7 @@ const userName = creator.userName
       ],
     };
 
-    let pages = [firstPage, ...questions];
+    let completePages = [firstPage, ...pages];
 
     const surveyPlaceholder = {
       title: title || "empty title",
@@ -49,11 +50,11 @@ const userName = creator.userName
       maxTimeToFinish: Number(maxTimeToFinish) || 25,
       firstPageIsStarted: true,
       startSurveyText: "Start Quiz",
-      pages,
+      pages: completePages,
       surveyPw,
-      creator:userName,
+      creator: userName,
       completedHtml: "<h4>thank you for your time.</h4>",
-      
+
       // completedHtmlOnCondition: [
       //   {
       //     expression: "{correctAnswers} == 0",
@@ -70,7 +71,7 @@ const userName = creator.userName
   };
 
   const sendSurvey = () => {
-    const survey = buildSurvey(questions);;
+    const survey = buildSurvey(questions);
     fetch("/api/updateSurvey", {
       method: "PUT",
       headers: {
@@ -102,11 +103,28 @@ const userName = creator.userName
     setQuestions([]);
   };
 
-  const surveyPassword = ()=>{
-    if(showSurveyPassword === true){
-      return <SurveyPassword setSurveyPw={setSurveyPw} setShowSurveyPassword={setShowSurveyPassword}/>
+  const questionsSum = () => {
+    let counter = 0;
+    pages
+      .map((page) => {
+        return page.elements.length;
+      })
+      .forEach((length) => {
+        counter += length;
+      });
+    return counter;
+  };
+
+  const surveyPassword = () => {
+    if (showSurveyPassword === true) {
+      return (
+        <SurveyPassword
+          setSurveyPw={setSurveyPw}
+          setShowSurveyPassword={setShowSurveyPassword}
+        />
+      );
     }
-  }
+  };
 
   return (
     <div className="right-bar-side-container">
@@ -191,7 +209,21 @@ const userName = creator.userName
 
         <Divider>
           <Toolbar>
-            <p>Number Of Question: {questions.length}</p>
+            <p>Number Of Question: {questionsSum()} </p>
+          </Toolbar>
+        </Divider>
+
+        <hr />
+        <Divider>
+          <Toolbar>
+            <Button
+              size="small"
+              onClick={() => {
+                addPage();
+              }}
+            >
+              add page
+            </Button>
           </Toolbar>
         </Divider>
 
@@ -200,29 +232,35 @@ const userName = creator.userName
         <Divider>
           <Toolbar>
             <Button
+<<<<<<< HEAD
             onClick={()=>{
               setShowSurveyPassword(!showSurveyPassword)
             }}
             color="success"
             variant="contained"
+=======
+              onClick={() => {
+                setShowSurveyPassword(true);
+              }}
+              color="success"
+              variant="contained"
+>>>>>>> 9eee7878f03820f26f8bc10ea4692cc778fd58ce
             >
               Survey Password
             </Button>
           </Toolbar>
         </Divider>
-        <hr/>
+        <hr />
         {surveyPassword()}
-
-        
 
         <Divider>
           <Toolbar>
             <Button
-            onClick={()=>{
-              router.push('/MySurveys')
-            }}
-            color="success"
-            variant="contained"
+              onClick={() => {
+                router.push("/MySurveys");
+              }}
+              color="success"
+              variant="contained"
             >
               My Surveys
             </Button>

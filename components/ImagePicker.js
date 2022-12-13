@@ -1,7 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Looks3 } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FileBase64 from "react-file-base64";
 
@@ -11,13 +9,13 @@ export default function ImagePicker({
   index,
   deleteQuestion,
   name: questionName = "",
+  pageIndex,
 }) {
-  const [name, setName] = useState(question.elements[0].name || "");
+  const [name, setName] = useState(question.name || "");
   const [files, setFiles] = useState([]);
   const [choices, setChoices] = useState([]);
 
   const getFiles = (files) => {
-    console.log(files);
     setFiles([...files]);
   };
 
@@ -29,16 +27,16 @@ export default function ImagePicker({
   }, [files]);
 
   useEffect(() => {
-    console.log(question);
-    updateSurveyContext(index, {
-      elements: [
-        {
-          type: "imagePicker",
-          name,
-          choices: choices,
-        },
-      ],
-    });
+    updateSurveyContext(
+      pageIndex,
+      index,
+
+      {
+        type: "imagePicker",
+        name,
+        choices: choices,
+      }
+    );
   }, [name, choices]);
 
   return (
@@ -58,7 +56,7 @@ export default function ImagePicker({
         <button
           type="button"
           onClick={() => {
-            deleteQuestion(index);
+            deleteQuestion(pageIndex, index);
           }}
         >
           <DeleteIcon />

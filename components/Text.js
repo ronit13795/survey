@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Text({
   question,
@@ -12,27 +12,29 @@ export default function Text({
   name: questionName = "",
   isRequired: required,
   requiredErrorText: errorText,
+  pageIndex,
 }) {
-  const [name, setName] = useState(question.elements[0].name || "");
-  const [title, setTitle] = useState(question.elements[0].title || "");
-  const [isRequired, setIsRequired] = useState(question.elements[0].required);
+  const [name, setName] = useState(question.name || "");
+  const [title, setTitle] = useState(question.title || "");
+  const [isRequired, setIsRequired] = useState(question.isRequired);
   const [requiredErrorText, setRequiredErrorText] = useState(
-    question.elements[0].errorText
+    "Value cannot be empty"
   );
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
   useEffect(() => {
-    updateSurveyContext(index, {
-      elements: [
-        {
-          name,
-          type: "text",
-          isRequired,
-          requiredErrorText,
-        },
-      ],
-    });
-  }, [name, title, isRequired, requiredErrorText]);
+    updateSurveyContext(
+      pageIndex,
+      index,
+
+      {
+        name,
+        type: "text",
+        isRequired,
+        requiredErrorText,
+      }
+    );
+  }, [name, title, isRequired]);
 
   return (
     <div className="container">
@@ -60,14 +62,14 @@ export default function Text({
           label="Required"
         />
 
-          <button
-            type="button"
-            onClick={() => {
-              deleteQuestion(index);
-            }}
-            >
-            <DeleteIcon />      
-          </button>
+        <button
+          type="button"
+          onClick={() => {
+            deleteQuestion(pageIndex, index);
+          }}
+        >
+          <DeleteIcon />
+        </button>
       </div>
     </div>
   );

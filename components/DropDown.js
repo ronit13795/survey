@@ -5,8 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function DropDown({
   question,
@@ -15,9 +14,10 @@ export default function DropDown({
   deleteQuestion,
   titleToSHow,
   choicesToShow,
+  pageIndex,
 }) {
-  const [title, setTitle] = useState(question.elements[0].title);
-  const [choices, setChoices] = useState(question.elements[0].choices);
+  const [title, setTitle] = useState(question.title);
+  const [choices, setChoices] = useState(question.choices);
 
   const changeChoices = (i, e) => {
     const updatedChoices = choices.map((choice, index) => {
@@ -37,15 +37,16 @@ export default function DropDown({
   };
 
   useEffect(() => {
-    updateSurveyContext(index, {
-      elements: [
-        {
-          type: "dropdown",
-          title,
-          choices,
-        },
-      ],
-    });
+    updateSurveyContext(
+      pageIndex,
+      index,
+
+      {
+        type: "dropdown",
+        title,
+        choices,
+      }
+    );
   }, [title, choices]);
 
   return (
@@ -68,24 +69,13 @@ export default function DropDown({
             labelId="demo-simple-select-disabled-label"
             id="demo-simple-select-disabled"
             label="Age"
+            value=""
           >
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
           </Select>
         </FormControl>
-        <Button className="add-btn"
-          onClick={() => {
-            setChoices([
-              ...choices,
-              { value: `item${choices.length + 1}`, text: "" },
-            ]);
-          }}
-          color="success"
-          variant="contained"
-        >
-          Add choice
-        </Button>
 
         {choicesToShow.map((choice, i) => {
           return (
@@ -107,14 +97,27 @@ export default function DropDown({
             </div>
           );
         })}
-           <button
-              type="button"
-              onClick={() => {
-                deleteQuestion(index);
-              }}
-            >
-              <DeleteIcon />      
-          </button>
+        <Button
+          className="add-btn"
+          onClick={() => {
+            setChoices([
+              ...choices,
+              { value: `item${choices.length + 1}`, text: "" },
+            ]);
+          }}
+          color="success"
+          variant="contained"
+        >
+          Add choice
+        </Button>
+        <button
+          type="button"
+          onClick={() => {
+            deleteQuestion(pageIndex, index);
+          }}
+        >
+          <DeleteIcon />
+        </button>
       </div>
     </div>
   );
