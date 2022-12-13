@@ -40,6 +40,7 @@ export default function Home({ survey }) {
         >
           Sign Up
         </button>
+
       </header>
       <DynamicForm survey={survey} />
     </Fragment>

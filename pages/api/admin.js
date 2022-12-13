@@ -8,7 +8,7 @@ async function adminDetails(req, res) {
 
   if (req.method === "POST") {
     let myAdmin = await adminModel.findOne({
-      userName: req.body["user-name"],
+      email: req.body["user-name"],
       password: req.body.password,
     });
 

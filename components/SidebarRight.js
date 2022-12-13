@@ -201,7 +201,7 @@ const userName = creator.userName
           <Toolbar>
             <Button
             onClick={()=>{
-              setShowSurveyPassword(true)
+              setShowSurveyPassword(!showSurveyPassword)
             }}
             color="success"
             variant="contained"
