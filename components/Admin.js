@@ -158,6 +158,5 @@ export default function AdminPage({ questions, setQuestions }) {
           })}
         </div>
       </div>
-    </div>
   );
 }
