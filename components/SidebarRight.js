@@ -232,19 +232,11 @@ export default function SidebarRight({
         <Divider>
           <Toolbar>
             <Button
-<<<<<<< HEAD
-            onClick={()=>{
-              setShowSurveyPassword(!showSurveyPassword)
-            }}
-            color="success"
-            variant="contained"
-=======
               onClick={() => {
-                setShowSurveyPassword(true);
+                setShowSurveyPassword(!showSurveyPassword);
               }}
               color="success"
               variant="contained"
->>>>>>> 9eee7878f03820f26f8bc10ea4692cc778fd58ce
             >
               Survey Password
             </Button>
