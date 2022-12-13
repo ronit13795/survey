@@ -32,6 +32,14 @@ export default function Home({ survey }) {
         >
           Admin
         </button>
+        <button
+          onClick={() => {
+            return router.push("/SignUp");
+          }}
+          className={style.btn}
+        >
+          Sign Up
+        </button>
       </header>
       <DynamicForm survey={survey} />
     </Fragment>
@@ -42,7 +50,8 @@ export async function getServerSideProps() {
   await dbConnect();
   let mySurvey = await surveyModel.find();
 
+
   return {
-    props: { survey: JSON.parse(JSON.stringify(mySurvey[0])) },
+    props: { survey: JSON.parse(JSON.stringify(mySurvey)) },
   };
 }

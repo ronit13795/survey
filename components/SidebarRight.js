@@ -5,6 +5,8 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
+import SurveyPassword from "./SurveyPassword";
+import jwt from "jsonwebtoken";
 
 export default function SidebarRight({
   questions,
@@ -15,7 +17,11 @@ export default function SidebarRight({
   const [title, setTitleName] = useState("");
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
+  const [surveyPw, setSurveyPw] = useState("");
+  const [showSurveyPassword, setShowSurveyPassword] = useState(false);
 
+  const creator = jwt.decode(localStorage.getItem("accessToken"));
+  const userName = creator.userName;
   const router = useRouter();
 
   const buildSurvey = () => {
@@ -45,7 +51,10 @@ export default function SidebarRight({
       firstPageIsStarted: true,
       startSurveyText: "Start Quiz",
       pages: completePages,
+      surveyPw,
+      creator: userName,
       completedHtml: "<h4>thank you for your time.</h4>",
+
       // completedHtmlOnCondition: [
       //   {
       //     expression: "{correctAnswers} == 0",
@@ -104,6 +113,17 @@ export default function SidebarRight({
         counter += length;
       });
     return counter;
+  };
+
+  const surveyPassword = () => {
+    if (showSurveyPassword === true) {
+      return (
+        <SurveyPassword
+          setSurveyPw={setSurveyPw}
+          setShowSurveyPassword={setShowSurveyPassword}
+        />
+      );
+    }
   };
 
   return (
@@ -208,6 +228,36 @@ export default function SidebarRight({
         </Divider>
 
         <hr />
+
+        <Divider>
+          <Toolbar>
+            <Button
+              onClick={() => {
+                setShowSurveyPassword(true);
+              }}
+              color="success"
+              variant="contained"
+            >
+              Survey Password
+            </Button>
+          </Toolbar>
+        </Divider>
+        <hr />
+        {surveyPassword()}
+
+        <Divider>
+          <Toolbar>
+            <Button
+              onClick={() => {
+                router.push("/MySurveys");
+              }}
+              color="success"
+              variant="contained"
+            >
+              My Surveys
+            </Button>
+          </Toolbar>
+        </Divider>
 
         <Toolbar style={{ bottom: "0", position: "fixed" }}>
           <Button

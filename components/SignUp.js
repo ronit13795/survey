@@ -1,12 +1,10 @@
+import * as React from 'react';
 import { useState } from "react";
 import { useRouter } from "next/router";
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 function Copyright(props) {
   return (
@@ -30,19 +29,22 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login() {
-  const [userName, setUserName] = useState("");
-  const [pw, setPw] = useState("");
+
+
+export default function SignUp() {
+
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState(""); 
   const router = useRouter();
 
   const checkAdminCredentials = () => {
-    fetch("api/admin", {
+    fetch("api/addAdmin", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ "user-name": userName, password: pw }),
+      body: JSON.stringify({ email: email, password: pw }),
     })
       .then((res) => {
         return res.json();
@@ -50,11 +52,11 @@ export default function Login() {
       .then((json) => {
         if (json.success) {
           localStorage.setItem("accessToken", json.accessToken);
-          return router.push("/Admin");
+          return router.push("/Login");
         }
-        return alert("invalid credentials");
       });
   };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -79,59 +81,59 @@ export default function Login() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              onChange={(e) => {
-                setUserName(e.target.value);
-              }}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              onChange={(e) => {
-                setPw(e.target.value);
-              }}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                  }}
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                onChange={(e) => {
+                    setPw(e.target.value)
+                  }}
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2}}
             >
-              Sign In
+              Sign Up
             </Button>
-            <Grid container>
+            <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/SignUp" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/Login" variant="body2">
+                  Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

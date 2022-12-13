@@ -10,9 +10,13 @@ const surveySchema = new mongoose.Schema({
   firstPageIsStarted:Boolean,
   startSurveyText:String,
   pages:Array,
+  surveyPw:String,
+  creator:String,
   completedHtml:String,
-  completedHtmlOnCondition:Array
+  completedHtmlOnCondition:Array,
 
+
+  
   });
   
   module.exports = mongoose.models.survey || mongoose.model("survey", surveySchema);
