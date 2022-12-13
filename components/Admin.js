@@ -6,8 +6,8 @@ import Text from "./Text";
 import Boolean from "./Boolean";
 import File from "./File";
 import DropDown from "./DropDown";
-import ImagePicker from "./ImagePicker";
-import Checkbox from "./Checkbox";
+import ImagePicker from "./imagepicker";
+import { color } from "@mui/system";
 
 export default function AdminPage({ questions, setQuestions }) {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -21,13 +21,12 @@ export default function AdminPage({ questions, setQuestions }) {
 
   const isActive = canDrop && isOver;
   let backgroundColor = "#ffffff";
-  let border = "";
-  let instructions = "drag questions";
+  let border = "hidden";
+
 
   if (isActive) {
-    backgroundColor = "#d2f7e5";
-    instructions = "can release :)";
-    border = "2px dashed gray";
+    backgroundColor = "#d2f7e5"; 
+    border = "2px dashed gray"
   } else if (canDrop) {
     instructions = "Drag here";
     backgroundColor = "#feffed";
@@ -53,88 +52,72 @@ export default function AdminPage({ questions, setQuestions }) {
   };
 
   return (
-    <div>
-      <div
-        className="admin-container"
-        ref={drop}
-        style={{ backgroundColor, border }}
-      >
-        <h3>{instructions}</h3>
-        <div>
-          {questions.map((question, index) => {
-            if (question.elements[0].type === "radiogroup") {
-              return (
-                <Question
-                  key={index}
-                  updateSurveyContext={updateSurveyContext}
-                  index={index}
-                  question={question}
-                  deleteQuestion={deleteQuestion}
-                  name={question.elements[0].name}
-                  titleToSHow={question.elements[0].title}
-                  choice1={question.elements[0].choices[0]}
-                  choice2={question.elements[0].choices[1]}
-                  choice3={question.elements[0].choices[2]}
-                  choice4={question.elements[0].choices[3]}
-                  answer={question.elements[0].correctAnswer}
-                />
-              );
-            }
-            if (question.elements[0].type === "rating") {
-              return (
-                <Rating
-                  key={index}
-                  index={index}
-                  question={question}
-                  deleteQuestion={deleteQuestion}
-                  updateSurveyContext={updateSurveyContext}
-                  name={question.elements[0].name}
-                  titleToSHow={question.elements[0].title}
-                  min={question.elements[0].rateMin}
-                  max={question.elements[0].rateMax}
-                />
-              );
-            }
-            if (question.elements[0].type === "text") {
-              return (
-                <Text
-                  key={index}
-                  index={index}
-                  question={question}
-                  deleteQuestion={deleteQuestion}
-                  updateSurveyContext={updateSurveyContext}
-                  name={question.elements[0].name}
-                  isRequired={question.elements[0].isRequired}
-                  requiredErrorText={question.elements[0].requiredErrorText}
-                />
-              );
-            }
-            if (question.elements[0].type === "dropdown") {
-              return (
-                <DropDown
-                  key={index}
-                  index={index}
-                  question={question}
-                  deleteQuestion={deleteQuestion}
-                  updateSurveyContext={updateSurveyContext}
-                  titleToSHow={question.elements[0].title}
-                  choicesToShow={question.elements[0].choices}
-                />
-              );
-            }
-            if (question.elements[0].type === "checkbox") {
-              return (
-                <Checkbox
-                  key={index}
-                  index={index}
-                  question={question}
-                  deleteQuestion={deleteQuestion}
-                  updateSurveyContext={updateSurveyContext}
-                  titleToSHow={question.elements[0].title}
-                  choicesToShow={question.elements[0].choices}
-                />
-              );
-            }
+    <div className="admin-container" ref={drop} style={{ backgroundColor, border }}>
+      <header>
+        <h1>Create a Survey</h1>
+      </header>
+      <div>
+        {questions.map((question, index) => {
+          if (question.elements[0].type === "radiogroup") {
+            return (
+              <Question
+                key={index}
+                updateSurveyContext={updateSurveyContext}
+                index={index}
+                question={question}
+                deleteQuestion={deleteQuestion}
+                name={question.elements[0].name}
+                titleToSHow={question.elements[0].title}
+                choice1={question.elements[0].choices[0]}
+                choice2={question.elements[0].choices[1]}
+                choice3={question.elements[0].choices[2]}
+                choice4={question.elements[0].choices[3]}
+                answer={question.elements[0].correctAnswer}
+              />
+            );
+          }
+          if (question.elements[0].type === "rating") {
+            return (
+              <Rating
+                key={index}
+                index={index}
+                question={question}
+                deleteQuestion={deleteQuestion}
+                updateSurveyContext={updateSurveyContext}
+                name={question.elements[0].name}
+                titleToSHow={question.elements[0].title}
+                min={question.elements[0].rateMin}
+                max={question.elements[0].rateMax}
+              />
+            );
+          }
+          if (question.elements[0].type === "text") {
+            return (
+              <Text
+                key={index}
+                index={index}
+                question={question}
+                deleteQuestion={deleteQuestion}
+                updateSurveyContext={updateSurveyContext}
+                name={question.elements[0].name}
+                isRequired={question.elements[0].isRequired}
+                requiredErrorText={question.elements[0].requiredErrorText}
+              />
+            );
+          }
+          if (question.elements[0].type === "dropdown") {
+            return (
+              <DropDown
+                key={index}
+                index={index}
+                question={question}
+                deleteQuestion={deleteQuestion}
+                updateSurveyContext={updateSurveyContext}
+                titleToSHow={question.elements[0].title}
+                choicesToShow={question.elements[0].choices}
+              />
+            );
+          }
 
             if (question.elements[0].type === "boolean") {
               return (
