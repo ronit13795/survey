@@ -11,18 +11,25 @@ export default function MySurveys({
   setNewSurvey,
   setMySurveys,
   setPages,
-  pages,
-MySurveys,
-newSurvey,
-title,setTitleName,maxTimeToFinishPage,setTimePage,
-maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw
+  MySurveys,
+  newSurvey,
+  setTitleName,
+  setTimePage,
+  setTimeFinish,
+  setSurveyPw,
+  setId
 }) {
 
   const creator = jwt.decode(localStorage.getItem("accessToken"));
   const userName = creator.userName
+
+  
   const router = useRouter()
 
   const [surveys,setSurveys] = useState([])
+  surveys.forEach((survey,index)=>{
+      survey.index = index;
+  })
  
    useEffect(()=>{
    fetch("/api/getMySurveys", {
@@ -74,21 +81,14 @@ maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw
           index={index} 
           deleteS={deleteSurvey}
            setPages={setPages}
-            setMySurveys={setMySurveys}
-            setNewSurvey={setNewSurvey}
-            pages={setPages}
-            setSurveys={setSurveys}
-            title={title}
-       setTitleName={setTitleName}
-       maxTimeToFinishPage={maxTimeToFinishPage}
-       setTimePage={setTimePage}
-       maxTimeToFinish={maxTimeToFinish}
-       setTimeFinish={setTimeFinish}
-       surveyPw={surveyPw}
-       setSurveyPw={setSurveyPw}
-          
+           setMySurveys={setMySurveys}
+           setNewSurvey={setNewSurvey}
+           setTitleName={setTitleName}
+           setTimePage={setTimePage}
+           setTimeFinish={setTimeFinish}
+           setSurveyPw={setSurveyPw}
+           setId={setId}
              />
-        
       })}
 
     </div>
