@@ -235,12 +235,11 @@ export default function SidebarRight({
         <Divider>
           <Toolbar>
             <Button
-
-            onClick={()=>{
-              setShowSurveyPassword(!showSurveyPassword)
-            }}
-            color="success"
-            variant="contained"
+              onClick={() => {
+                setShowSurveyPassword(!showSurveyPassword);
+              }}
+              color="success"
+              variant="contained"
             >
               Survey Password
             </Button>
@@ -254,7 +253,7 @@ export default function SidebarRight({
             <Button
               onClick={() => {
                 setNewSurvey(false);
-                setMySurveys(true)
+                setMySurveys(true);
               }}
               color="success"
               variant="contained"
@@ -285,7 +284,7 @@ export default function SidebarRight({
               if (confirmDelete) resetAll();
             }}
             color="error"
-            variant="contained" 
+            variant="contained"
           >
             Discard
           </Button>
