@@ -286,7 +286,7 @@ export default function SidebarRight({
               if (confirmDelete) resetAll();
             }}
             color="error"
-            variant="contained"
+            variant="contained" 
           >
             Discard
           </Button>
