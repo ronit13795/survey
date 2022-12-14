@@ -5,7 +5,9 @@ import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function Survey({survey,index,deleteS}) {
+export default function Survey({survey,index,deleteS,setNewSurvey,setMySurveys,setPages,pages,setSurvey
+, title,setTitleName,maxTimeToFinishPage,setTimePage,
+maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw}) {
      
   const deleteSurvey = () => {
     fetch("/api/deleteSurvey", {
@@ -29,6 +31,7 @@ export default function Survey({survey,index,deleteS}) {
         console.log(err);
         alert("fatal error please try again latter");
       });
+      
       deleteS(index)
   };
   
@@ -47,7 +50,17 @@ export default function Survey({survey,index,deleteS}) {
            <DeleteIcon />
         </IconButton>
 
-        <IconButton aria-label="edit" component="label">
+        <IconButton aria-label="edit" component="label"
+        onClick={()=>{
+         setTitleName(survey.title)
+         setTimePage(survey.maxTimeToFinishPage)
+         setTimeFinish(survey.maxTimeToFinish);
+         setSurveyPw(survey.surveyPw)
+          setPages(survey.pages)
+          setMySurveys(false);
+          setNewSurvey(true)
+        }}
+        >
            <EditIcon />
         </IconButton>
         </Stack>

@@ -13,11 +13,15 @@ export default function SidebarRight({
   setQuestions,
   pages,
   addPage,
+  setNewSurvey,
+  setMySurveys,
+  title,setTitleName,maxTimeToFinishPage,setTimePage,
+  maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw
 }) {
-  const [title, setTitleName] = useState("");
-  const [maxTimeToFinishPage, setTimePage] = useState("");
-  const [maxTimeToFinish, setTimeFinish] = useState("");
-  const [surveyPw, setSurveyPw] = useState("");
+  // const [title, setTitleName] = useState("");
+  // const [maxTimeToFinishPage, setTimePage] = useState("");
+  // const [maxTimeToFinish, setTimeFinish] = useState("");
+  // const [surveyPw, setSurveyPw] = useState("");
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
 
   const creator = jwt.decode(localStorage.getItem("accessToken"));
@@ -100,7 +104,7 @@ export default function SidebarRight({
     setTitleName("");
     setTimeFinish("");
     setTimePage("");
-    setQuestions([]);
+    //  setQuestions([]);
   };
 
   const questionsSum = () => {
@@ -232,19 +236,12 @@ export default function SidebarRight({
         <Divider>
           <Toolbar>
             <Button
-<<<<<<< HEAD
+
             onClick={()=>{
               setShowSurveyPassword(!showSurveyPassword)
             }}
             color="success"
             variant="contained"
-=======
-              onClick={() => {
-                setShowSurveyPassword(true);
-              }}
-              color="success"
-              variant="contained"
->>>>>>> 9eee7878f03820f26f8bc10ea4692cc778fd58ce
             >
               Survey Password
             </Button>
@@ -257,7 +254,8 @@ export default function SidebarRight({
           <Toolbar>
             <Button
               onClick={() => {
-                router.push("/MySurveys");
+                setNewSurvey(false);
+                setMySurveys(true)
               }}
               color="success"
               variant="contained"
