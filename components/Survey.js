@@ -56,6 +56,7 @@ maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw}) {
          setTimePage(survey.maxTimeToFinishPage)
          setTimeFinish(survey.maxTimeToFinish);
          setSurveyPw(survey.surveyPw)
+        let myPage = [survey.pages.shift()]
           setPages(survey.pages)
           setMySurveys(false);
           setNewSurvey(true)
