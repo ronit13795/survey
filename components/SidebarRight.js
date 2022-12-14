@@ -10,13 +10,19 @@ import jwt from "jsonwebtoken";
 
 export default function SidebarRight({
   questions,
-  setQuestions,
+  setPages,
   pages,
   addPage,
   setNewSurvey,
   setMySurveys,
-  title,setTitleName,maxTimeToFinishPage,setTimePage,
-  maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw
+  title,
+  setTitleName,
+  maxTimeToFinishPage,
+  setTimePage,
+  maxTimeToFinish,
+  setTimeFinish,
+  surveyPw,
+  setSurveyPw,
 }) {
   // const [title, setTitleName] = useState("");
   // const [maxTimeToFinishPage, setTimePage] = useState("");
@@ -104,7 +110,7 @@ export default function SidebarRight({
     setTitleName("");
     setTimeFinish("");
     setTimePage("");
-    //  setQuestions([]);
+    setPages([]);
   };
 
   const questionsSum = () => {
@@ -236,12 +242,11 @@ export default function SidebarRight({
         <Divider>
           <Toolbar>
             <Button
-
-            onClick={()=>{
-              setShowSurveyPassword(!showSurveyPassword)
-            }}
-            color="success"
-            variant="contained"
+              onClick={() => {
+                setShowSurveyPassword(!showSurveyPassword);
+              }}
+              color="success"
+              variant="contained"
             >
               Survey Password
             </Button>
@@ -255,7 +260,7 @@ export default function SidebarRight({
             <Button
               onClick={() => {
                 setNewSurvey(false);
-                setMySurveys(true)
+                setMySurveys(true);
               }}
               color="success"
               variant="contained"
@@ -286,7 +291,7 @@ export default function SidebarRight({
               if (confirmDelete) resetAll();
             }}
             color="error"
-            variant="contained" 
+            variant="contained"
           >
             Discard
           </Button>
