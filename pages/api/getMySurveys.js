@@ -9,7 +9,7 @@ async function getMySurveys(req,res){
        
         let myCreator = req.body.creator
       let mySurveys = await surveyModel.find({creator:myCreator})
-      console.log(mySurveys);
+ 
         return res.json({ success: true ,surveys:mySurveys});
       }
       res.json({ success: false });
