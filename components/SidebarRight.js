@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 import SurveyPassword from "./SurveyPassword";
 import jwt from "jsonwebtoken";
+import { useEffect } from "react";
 
 export default function SidebarRight({
   questions,
@@ -15,15 +16,24 @@ export default function SidebarRight({
   addPage,
   setNewSurvey,
   setMySurveys,
-  title,setTitleName,maxTimeToFinishPage,setTimePage,
-  maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw,_id,setId
+  title,
+  setTitleName,
+  maxTimeToFinishPage,
+  setTimePage,
+  maxTimeToFinish,
+  setTimeFinish,
+  surveyPw,
+  setSurveyPw,
+  _id,
+  setId,
 }) {
-
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
-
-  const creator = jwt.decode(localStorage.getItem("accessToken"));
-  const userName = creator.userName;
-  const router = useRouter();
+  let creator;
+  let userName;
+  if (typeof window !== "undefined") {
+    creator = jwt.decode(localStorage.getItem("accessToken"));
+    userName = creator.userName;
+  }
 
   const buildSurvey = () => {
     const firstPage = {
@@ -79,7 +89,7 @@ export default function SidebarRight({
         Accept: "application/json",
         "Content-Type": "application/json",
         "access-token": localStorage.getItem("accessToken"),
-        id:_id,
+        id: _id,
       },
       body: JSON.stringify(survey),
     })
@@ -96,7 +106,7 @@ export default function SidebarRight({
         console.log(err);
         alert("fatal error please try again latter");
       });
-      setId("new")
+    setId("new");
   };
 
   const resetAll = () => {
