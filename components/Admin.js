@@ -51,6 +51,7 @@ export default function AdminPage({ pages, deletePage, setPages }) {
               key={index}
               deletePage={deletePage}
               page={page}
+              setPages={setPages}
               updateSurveyContext={updateSurveyContext}
               deleteQuestion={deleteQuestion}
               movePage={movePage}
