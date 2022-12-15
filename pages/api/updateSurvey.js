@@ -19,10 +19,17 @@ async function updateSurvey(req, res) {
     }
    
     let newSurvey = req.body
-    //  let myUser = jwt.decode(token)
-    await surveyModel.insertMany(newSurvey);
-    return res.json({ success: true });
-  }
+    let myId = req.headers["id"]
+ 
+      if(myId !== "new"){
+        await surveyModel.replaceOne({_id:myId},newSurvey);
+        return res.json({ success: true });
+      }else{
+        await surveyModel.insertMany(newSurvey);
+        return res.json({ success: true });
+      }
+  
+}
   res.json({ success: false });
 }
 

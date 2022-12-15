@@ -1,5 +1,5 @@
 import AdminPage from "../components/Admin";
-import { Fragment, useEffect } from "react";
+import { Fragment, use, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import SidebarRight from "../components/SidebarRight";
 import { DndProvider } from "react-dnd";
@@ -16,6 +16,7 @@ export default function Admin() {
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
   const [surveyPw, setSurveyPw] = useState("");
+  const[id,setId] = useState("new");
 
   const addPage = () => {
     setPages((pages) => [...pages, { elements: [] }]);
@@ -37,31 +38,33 @@ export default function Admin() {
       return (
         <Fragment>
           <DndProvider backend={HTML5Backend}>
-            <Sidebar setPages={setPages} />
-            <AdminPage
-              addPage={addPage}
-              pages={pages}
-              deletePage={deletePage}
-              setPages={setPages}
-            />
-          </DndProvider>
-          <SidebarRight
-            setPages={setPages}
-            addPage={addPage}
-            pages={pages}
-            setMySurveys={setMySurveys}
-            setNewSurvey={setNewSurvey}
-            newSurvey={newSurvey}
-            mySurveys={mySurveys}
-            title={title}
-            setTitleName={setTitleName}
-            maxTimeToFinishPage={maxTimeToFinishPage}
-            setTimePage={setTimePage}
-            maxTimeToFinish={maxTimeToFinish}
-            setTimeFinish={setTimeFinish}
-            surveyPw={surveyPw}
-            setSurveyPw={setSurveyPw}
-          />
+        <Sidebar setPages={setPages} />
+        <AdminPage
+          addPage={addPage}
+          pages={pages}
+          deletePage={deletePage}
+          setPages={setPages}
+        />
+      </DndProvider>
+      <SidebarRight
+       addPage={addPage}
+       pages={pages} 
+        setMySurveys={setMySurveys}
+         setNewSurvey={setNewSurvey}
+      newSurvey={newSurvey}
+       mySurveys={mySurveys}
+       title={title}
+       setTitleName={setTitleName}
+       maxTimeToFinishPage={maxTimeToFinishPage}
+       setTimePage={setTimePage}
+       maxTimeToFinish={maxTimeToFinish}
+       setTimeFinish={setTimeFinish}
+       surveyPw={surveyPw}
+       setSurveyPw={setSurveyPw}
+       setPages={setPages}
+       _id={id}
+       setId={setId}
+       />
         </Fragment>
       );
     }
@@ -69,23 +72,18 @@ export default function Admin() {
 
   return (
     <Fragment>
-      {mySurveys && (
-        <MySurveys
-          pages={pages}
-          setPages={setPages}
-          setMySurveys={setMySurveys}
-          setNewSurvey={setNewSurvey}
-          title={title}
-          setTitleName={setTitleName}
-          maxTimeToFinishPage={maxTimeToFinishPage}
-          setTimePage={setTimePage}
-          maxTimeToFinish={maxTimeToFinish}
-          setTimeFinish={setTimeFinish}
-          surveyPw={surveyPw}
-          setSurveyPw={setSurveyPw}
-        />
-      )}
-      {add()}
+      {mySurveys && <MySurveys
+       setPages={setPages}
+       setMySurveys={setMySurveys} 
+      setNewSurvey={setNewSurvey}
+      setTitleName={setTitleName}
+      setTimePage={setTimePage}
+      setTimeFinish={setTimeFinish}
+      setSurveyPw={setSurveyPw}
+      setId={setId}
+      />}
+         {add()}
+   
     </Fragment>
   );
 }

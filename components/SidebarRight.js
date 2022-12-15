@@ -15,19 +15,10 @@ export default function SidebarRight({
   addPage,
   setNewSurvey,
   setMySurveys,
-  title,
-  setTitleName,
-  maxTimeToFinishPage,
-  setTimePage,
-  maxTimeToFinish,
-  setTimeFinish,
-  surveyPw,
-  setSurveyPw,
+  title,setTitleName,maxTimeToFinishPage,setTimePage,
+  maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw,_id,setId
 }) {
-  // const [title, setTitleName] = useState("");
-  // const [maxTimeToFinishPage, setTimePage] = useState("");
-  // const [maxTimeToFinish, setTimeFinish] = useState("");
-  // const [surveyPw, setSurveyPw] = useState("");
+
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
 
   const creator = jwt.decode(localStorage.getItem("accessToken"));
@@ -88,6 +79,7 @@ export default function SidebarRight({
         Accept: "application/json",
         "Content-Type": "application/json",
         "access-token": localStorage.getItem("accessToken"),
+        id:_id,
       },
       body: JSON.stringify(survey),
     })
@@ -104,6 +96,7 @@ export default function SidebarRight({
         console.log(err);
         alert("fatal error please try again latter");
       });
+      setId("new")
   };
 
   const resetAll = () => {

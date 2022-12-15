@@ -5,9 +5,9 @@ import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function Survey({survey,index,deleteS,setNewSurvey,setMySurveys,setPages,pages,setSurvey
-, title,setTitleName,maxTimeToFinishPage,setTimePage,
-maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw}) {
+export default function Survey({survey,index,deleteS,setNewSurvey,setMySurveys,setPages
+, setTitleName,setTimePage,
+setTimeFinish,setSurveyPw,setId}) {
      
   const deleteSurvey = () => {
     fetch("/api/deleteSurvey", {
@@ -58,6 +58,7 @@ maxTimeToFinish,setTimeFinish,surveyPw,setSurveyPw}) {
          setSurveyPw(survey.surveyPw)
         let myPage = [survey.pages.shift()]
           setPages(survey.pages)
+          setId(survey._id);
           setMySurveys(false);
           setNewSurvey(true)
         }}
