@@ -11,8 +11,6 @@ async function surveysAnswered (req,res){
     }
 
     await surveysAnsweredModel.insertMany(myAnswers);
-   let results = await surveysAnsweredModel.find()
-   console.log(results);
     return res.json({ success: true });
    }
    return res.json({ success: false });
