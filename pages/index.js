@@ -42,7 +42,7 @@ export default function Home({ survey }) {
         </button>
 
       </header>
-      <DynamicForm survey={survey[survey.length-2]} />
+      <DynamicForm survey={survey} />
     </Fragment>
   );
 }
