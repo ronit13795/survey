@@ -7,10 +7,13 @@ async function surveysAnswered (req,res){
     let myAnswers = {
         title: req.body.title,
         creator: req.body.creator,
+        surveyId: req.body.surveyId,
         answers: req.body.answers,
     }
 
     await surveysAnsweredModel.insertMany(myAnswers);
+    // let results = await surveysAnsweredModel.find();
+    // console.log(results);
     return res.json({ success: true });
    }
    return res.json({ success: false });
