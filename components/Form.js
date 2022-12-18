@@ -19,7 +19,7 @@ export default function Form({ survey }) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({title:surveyToShow.title,creator:survey.creator,answers:results}),
+      body: JSON.stringify({title:surveyToShow.title,creator:survey.creator,surveyId:survey._id,answers:results}),
     })
       .then((res) => {
         return res.json();
