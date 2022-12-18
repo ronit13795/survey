@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import jwt from "jsonwebtoken";
 
 export default function Survey({
   survey,
@@ -66,10 +67,23 @@ export default function Survey({
 
     deleteS(index);
   };
+  const showCreator =()=>{
+    let creator;
+    let userName;
+    if (typeof window !== "undefined") {
+    creator = jwt.decode(localStorage.getItem("accessToken"));
+    userName = creator.userName;
+    if(userName === "ADMIN"){
+      return <p style={{ color: "black" }}>creator: {survey.creator}</p>
+    }
+   }
+  
+  }
 
   return (
     <div>
       <p style={{ color: "black" }}>survey title: {survey.title}</p>
+      {showCreator()}
       <Stack direction="row" spacing={1}>
         <IconButton
           aria-label="delete"
