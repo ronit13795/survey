@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 
 export default function DialogPs({ setUserPassword, checkValidPassword }) {
   return (
-    <Dialog open onClose>
+    <Dialog open>
       <DialogTitle>Survey for authorized users only</DialogTitle>
       <DialogContent>
         <DialogContentText>
