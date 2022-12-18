@@ -6,11 +6,8 @@ import dbConnect from "../lib/dbConnect";
 import surveyModel from "../models/survey";
 import { useRouter } from "next/router";
 
-const DynamicForm = dynamic(() => import("../components/Form"), {
-  ssr: false,
-});
 
-export default function Home({ survey }) {
+export default function Home() {
   const router = useRouter();
   const checkDetail = () => {
     if (
@@ -23,14 +20,13 @@ export default function Home({ survey }) {
   };
   return (
     <Fragment>
-      <header className={style.header}>
         <button
           onClick={() => {
             checkDetail();
           }}
           className={style.btn}
         >
-          Admin
+          Sign In
         </button>
         <button
           onClick={() => {
@@ -40,19 +36,8 @@ export default function Home({ survey }) {
         >
           Sign Up
         </button>
-
-      </header>
-      <DynamicForm survey={survey} />
     </Fragment>
   );
 }
 
-export async function getServerSideProps() {
-  await dbConnect();
-  let mySurvey = await surveyModel.find();
 
-
-  return {
-    props: { survey: JSON.parse(JSON.stringify(mySurvey)) },
-  };
-}
