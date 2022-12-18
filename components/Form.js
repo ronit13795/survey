@@ -9,7 +9,6 @@ export default function Form({ survey }) {
   const surveyToShow = new Model(survey);
   const alertResults = useCallback((sender) => {
     const results = JSON.stringify(sender.data);
-    // alert(results);
     console.log(results);
     console.log(survey.creator);
     console.log(JSON.parse(JSON.stringify(surveyToShow)));
