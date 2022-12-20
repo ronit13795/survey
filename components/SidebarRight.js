@@ -98,7 +98,7 @@ export default function SidebarRight({
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        user,
+        ...user,
         id: _id,
       },
       body: JSON.stringify(survey),
