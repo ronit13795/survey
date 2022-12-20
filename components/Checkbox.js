@@ -5,9 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function DropDown({
+export default function Checkbox({
   question,
   updateSurveyContext,
   index,
@@ -42,7 +43,7 @@ export default function DropDown({
       index,
 
       {
-        type: "dropdown",
+        type: "checkbox",
         title,
         choices,
       }
@@ -52,7 +53,7 @@ export default function DropDown({
   return (
     <div className="container">
       <div className="question-container">
-        <h2>Question {index + 1} - Dropdown Type </h2>
+        <h2>Question {index + 1} - CheckBox type </h2>
         <input
           style={{ display: "block", marginLeft: "auto", marginRight: "auto" }}
           onChange={(e) => {
@@ -70,12 +71,21 @@ export default function DropDown({
             id="demo-simple-select-disabled"
             label="Age"
             value=""
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-          </Select>
+          ></Select>
         </FormControl>
+        <Button
+          className="add-btn"
+          onClick={() => {
+            setChoices([
+              ...choices,
+              { value: `item${choices.length + 1}`, text: "" },
+            ]);
+          }}
+          color="success"
+          variant="contained"
+        >
+          Add choice
+        </Button>
 
         {choicesToShow.map((choice, i) => {
           return (
@@ -97,19 +107,6 @@ export default function DropDown({
             </div>
           );
         })}
-        <Button
-          className="add-btn"
-          onClick={() => {
-            setChoices([
-              ...choices,
-              { value: `item${choices.length + 1}`, text: "" },
-            ]);
-          }}
-          color="success"
-          variant="contained"
-        >
-          Add choice
-        </Button>
         <button
           type="button"
           onClick={() => {

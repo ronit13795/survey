@@ -3,13 +3,7 @@ import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 
-export default function SidebarItem({
-  name,
-  questionType,
-  addQuestion,
-  question,
-  Icon,
-}) {
+export default function SidebarItem({ name, question, Icon, setPages }) {
   const [isHover, setIsHover] = useState(false);
   // const style = {
   //   border: "1px dashed gray",
@@ -32,9 +26,16 @@ export default function SidebarItem({
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
         (() => {
-          addQuestion(question);
+          setPages((pages) => {
+            const updatedPages = pages.map((page, i) => {
+              if (i == dropResult.index) {
+                return { elements: [...page.elements, { ...question }] };
+              }
+              return page;
+            });
+            return updatedPages;
+          });
         })();
-        // alert(`You dropped ${item.name} into ${dropResult.name}!`);
       }
     },
     collect: (monitor) => ({

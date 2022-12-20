@@ -5,17 +5,35 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
+import SurveyPassword from "./SurveyPassword";
+import jwt from "jsonwebtoken";
+import { useEffect } from "react";
 
 export default function SidebarRight({
   questions,
-  setQuestions,
-  numOfQuestions,
+  setPages,
+  pages,
+  addPage,
+  setNewSurvey,
+  setMySurveys,
+  title,
+  setTitleName,
+  maxTimeToFinishPage,
+  setTimePage,
+  maxTimeToFinish,
+  setTimeFinish,
+  surveyPw,
+  setSurveyPw,
+  _id,
+  setId,
 }) {
-  const [title, setTitleName] = useState("");
-  const [maxTimeToFinishPage, setTimePage] = useState("");
-  const [maxTimeToFinish, setTimeFinish] = useState("");
-
-  const router = useRouter();
+  const [showSurveyPassword, setShowSurveyPassword] = useState(false);
+  let creator;
+  let userName;
+  if (typeof window !== "undefined") {
+    creator = jwt.decode(localStorage.getItem("accessToken"));
+    userName = creator.userName;
+  }
 
   const buildSurvey = () => {
     const firstPage = {
@@ -33,7 +51,7 @@ export default function SidebarRight({
       ],
     };
 
-    let pages = [firstPage, ...questions];
+    let completePages = [firstPage, ...pages];
 
     const surveyPlaceholder = {
       title: title || "empty title",
@@ -43,8 +61,11 @@ export default function SidebarRight({
       maxTimeToFinish: Number(maxTimeToFinish) || 25,
       firstPageIsStarted: true,
       startSurveyText: "Start Quiz",
-      pages,
+      pages: completePages,
+      surveyPw,
+      creator: userName,
       completedHtml: "<h4>thank you for your time.</h4>",
+
       // completedHtmlOnCondition: [
       //   {
       //     expression: "{correctAnswers} == 0",
@@ -68,6 +89,7 @@ export default function SidebarRight({
         Accept: "application/json",
         "Content-Type": "application/json",
         "access-token": localStorage.getItem("accessToken"),
+        id: _id,
       },
       body: JSON.stringify(survey),
     })
@@ -84,13 +106,37 @@ export default function SidebarRight({
         console.log(err);
         alert("fatal error please try again latter");
       });
+    setId("new");
   };
 
   const resetAll = () => {
     setTitleName("");
     setTimeFinish("");
     setTimePage("");
-    setQuestions([]);
+    setPages([]);
+  };
+
+  const questionsSum = () => {
+    let counter = 0;
+    pages
+      .map((page) => {
+        return page.elements.length;
+      })
+      .forEach((length) => {
+        counter += length;
+      });
+    return counter;
+  };
+
+  const surveyPassword = () => {
+    if (showSurveyPassword === true) {
+      return (
+        <SurveyPassword
+          setSurveyPw={setSurveyPw}
+          setShowSurveyPassword={setShowSurveyPassword}
+        />
+      );
+    }
   };
 
   return (
@@ -176,11 +222,56 @@ export default function SidebarRight({
 
         <Divider>
           <Toolbar>
-            <p>Number Of Question: {questions.length}</p>
+            <p>Number Of Question: {questionsSum()} </p>
           </Toolbar>
         </Divider>
 
         <hr />
+        <Divider>
+          <Toolbar>
+            <Button
+              size="small"
+              onClick={() => {
+                addPage();
+              }}
+            >
+              add page
+            </Button>
+          </Toolbar>
+        </Divider>
+
+        <hr />
+
+        <Divider>
+          <Toolbar>
+            <Button
+              onClick={() => {
+                setShowSurveyPassword(!showSurveyPassword);
+              }}
+              color="success"
+              variant="contained"
+            >
+              Survey Password
+            </Button>
+          </Toolbar>
+        </Divider>
+        <hr />
+        {surveyPassword()}
+
+        <Divider>
+          <Toolbar>
+            <Button
+              onClick={() => {
+                setNewSurvey(false);
+                setMySurveys(true);
+              }}
+              color="success"
+              variant="contained"
+            >
+              My Surveys
+            </Button>
+          </Toolbar>
+        </Divider>
 
         <Toolbar style={{ bottom: "0", position: "fixed" }}>
           <Button
@@ -195,6 +286,7 @@ export default function SidebarRight({
           </Button>
 
           <Button
+            className="barBtn"
             onClick={() => {
               let confirmDelete = confirm(
                 "Are sure you want to delete the survey?"
@@ -207,7 +299,6 @@ export default function SidebarRight({
             Discard
           </Button>
         </Toolbar>
-
         <Divider />
       </Drawer>
     </div>

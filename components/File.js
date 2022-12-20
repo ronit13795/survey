@@ -1,5 +1,6 @@
-import React from 'react'
-import { useState ,useEffect} from 'react'
+import React from "react";
+import { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function File({
   question,
@@ -7,46 +8,43 @@ export default function File({
   index,
   deleteQuestion,
   name: questionName = "",
-})
- {
-    const[name,setName] = useState(question.elements[0].name || "");
-   
+  pageIndex,
+}) {
+  const [name, setName] = useState(question.name || "");
 
-    useEffect(() => {
-        updateSurveyContext(index, {
-          elements: [
-            {
-              type: "file",
-              name,             
-            },
-          ],
-        });
-      },[name])
+  useEffect(() => {
+    updateSurveyContext(
+      pageIndex,
+      index,
+
+      {
+        type: "file",
+        name,
+      }
+    );
+  }, [name]);
   return (
     <div className="container">
-     <div className="question-container">
-       <h2>Question {index + 1} - file type </h2>
+      <div className="question-container">
+        <h2>Question {index + 1} - file type </h2>
 
-       <input
+        <input
           onChange={(e) => {
             setName(e.target.value);
           }}
-          placeholder="please enter the question"
+          placeholder="Please enter the question"
           value={questionName}
         />
-    
-         <button
+
+        <button
           type="button"
           onClick={() => {
-            deleteQuestion(index);
+            deleteQuestion(pageIndex, index);
           }}
-         >
-          x
-         </button>
-          
-                   
-
-     </div>
+        >
+          <DeleteIcon />
+        </button>
+      </div>
     </div>
-  )
+  );
 }

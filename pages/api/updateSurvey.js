@@ -17,17 +17,28 @@ async function updateSurvey(req, res) {
     } catch (err) {
       return res.json({ success: false, msg: "invalid token" });
     }
-    let survey = await surveyModel.find();
-    let newSurvey = req.body;
-    if (!survey.length) {
-      let survey = new surveyModel(newSurvey);
-      survey = await survey.save();
-      return res.json({ success: true });
-    }
-    await surveyModel.update({ _id: survey[0]._id }, newSurvey);
-    return res.json({ success: true });
-  }
+   
+    let newSurvey = req.body
+    let myId = req.headers["id"]
+ 
+      if(myId !== "new"){
+        await surveyModel.replaceOne({_id:myId},newSurvey);
+        return res.json({ success: true });
+      }else{
+        await surveyModel.insertMany(newSurvey);
+        return res.json({ success: true });
+      }
+  
+}
   res.json({ success: false });
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "10mb",
+    },
+  },
+};
 
 export default updateSurvey;

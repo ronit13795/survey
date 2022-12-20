@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 
 export default function Rating({
@@ -6,28 +7,30 @@ export default function Rating({
   updateSurveyContext,
   index,
   deleteQuestion,
-  name: questionName = "",
+  name: questionName,
   titleToSHow = "",
   min,
   max,
+  pageIndex,
 }) {
-  const [name, setName] = useState(question.elements[0].name || "");
-  const [title, setTitle] = useState(question.elements[0].title || "");
-  const [rateMin, setRateMin] = useState(question.elements[0].rateMin);
-  const [rateMax, setRateMax] = useState(question.elements[0].rateMax);
+  const [name, setName] = useState(question.name || "");
+  const [title, setTitle] = useState(question.title || "");
+  const [rateMin, setRateMin] = useState(question.rateMin);
+  const [rateMax, setRateMax] = useState(question.rateMax);
 
   useEffect(() => {
-    updateSurveyContext(index, {
-      elements: [
-        {
-          type: "rating",
-          name,
-          title,
-          rateMin: rateMin,
-          rateMax: rateMax,
-        },
-      ],
-    });
+    updateSurveyContext(
+      pageIndex,
+      index,
+
+      {
+        type: "rating",
+        name,
+        title,
+        rateMin: rateMin,
+        rateMax: rateMax,
+      }
+    );
   }, [name, title, rateMax, rateMin]);
 
   return (
@@ -52,6 +55,7 @@ export default function Rating({
         />
 
         <input
+          type={"number"}
           value={min}
           onChange={(e) => {
             setRateMin(e.target.value);
@@ -59,6 +63,7 @@ export default function Rating({
           placeholder="What is the minimum rating?"
         />
         <input
+          type={"number"}
           value={max}
           onChange={(e) => {
             setRateMax(e.target.value);
@@ -68,10 +73,10 @@ export default function Rating({
         <button
           type="button"
           onClick={() => {
-            deleteQuestion(index);
+            deleteQuestion(pageIndex, index);
           }}
         >
-          x
+          <DeleteIcon />
         </button>
       </div>
     </div>
