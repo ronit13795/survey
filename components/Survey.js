@@ -21,9 +21,9 @@ export default function Survey({
   setTimeFinish,
   setSurveyPw,
   setId,
-  host,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const host = window.location.href.split("/Admin")[0];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,18 +67,17 @@ export default function Survey({
 
     deleteS(index);
   };
-  const showCreator =()=>{
+  const showCreator = () => {
     let creator;
     let userName;
     if (typeof window !== "undefined") {
-    creator = jwt.decode(localStorage.getItem("accessToken"));
-    userName = creator.userName;
-    if(userName === "ADMIN"){
-      return <p style={{ color: "black" }}>creator: {survey.creator}</p>
+      creator = jwt.decode(localStorage.getItem("accessToken"));
+      userName = creator.userName;
+      if (userName === "ADMIN") {
+        return <p style={{ color: "black" }}>creator: {survey.creator}</p>;
+      }
     }
-   }
-  
-  }
+  };
 
   return (
     <div>

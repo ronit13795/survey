@@ -34,12 +34,3 @@ export default function Home({ survey }) {
     </Fragment>
   );
 }
-
-export async function getServerSideProps() {
-  await dbConnect();
-  let mySurvey = await surveyModel.find();
-
-  return {
-    props: { survey: JSON.parse(JSON.stringify(mySurvey)) },
-  };
-}
