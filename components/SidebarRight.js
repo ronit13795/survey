@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import SurveyPassword from "./SurveyPassword";
 import jwt from "jsonwebtoken";
 import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function SidebarRight({
   questions,
@@ -28,11 +29,16 @@ export default function SidebarRight({
   setId,
 }) {
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
+  const { data: session } = useSession();
   let creator;
   let userName;
   if (typeof window !== "undefined") {
-    creator = jwt.decode(localStorage.getItem("accessToken"));
-    userName = creator.userName;
+    if (session) {
+      userName = session.user.email;
+    } else {
+      creator = jwt.decode(localStorage.getItem("accessToken"));
+      userName = creator.userName;
+    }
   }
 
   const buildSurvey = () => {
@@ -81,6 +87,10 @@ export default function SidebarRight({
     return surveyPlaceholder;
   };
 
+  let user = session
+    ? { userName: session.user.email }
+    : { "access-token": localStorage.getItem("accessToken") };
+
   const sendSurvey = () => {
     const survey = buildSurvey(questions);
     fetch("/api/updateSurvey", {
@@ -88,7 +98,7 @@ export default function SidebarRight({
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "access-token": localStorage.getItem("accessToken"),
+        user,
         id: _id,
       },
       body: JSON.stringify(survey),

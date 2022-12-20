@@ -8,6 +8,7 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import jwt from "jsonwebtoken";
+import { useSession } from "next-auth/react";
 
 export default function Survey({
   survey,
@@ -24,6 +25,7 @@ export default function Survey({
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const host = window.location.href.split("/Admin")[0];
+  const { data: session } = useSession();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -71,8 +73,12 @@ export default function Survey({
     let creator;
     let userName;
     if (typeof window !== "undefined") {
-      creator = jwt.decode(localStorage.getItem("accessToken"));
-      userName = creator.userName;
+      if (session) {
+        userName = session.user.email;
+      } else {
+        creator = jwt.decode(localStorage.getItem("accessToken"));
+        userName = creator.userName;
+      }
       if (userName === "ADMIN") {
         return <p style={{ color: "black" }}>creator: {survey.creator}</p>;
       }

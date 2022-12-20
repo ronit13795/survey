@@ -7,29 +7,30 @@ async function updateSurvey(req, res) {
   await dbConnect();
 
   if (req.method === "PUT") {
-    const token = req.headers["access-token"];
+    if (req.headers["access-token"]) {
+      const token = req.headers["access-token"];
 
-    if (!token) {
-      return res.json({ success: false, msg: "token required" });
-    }
-    try {
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    } catch (err) {
-      return res.json({ success: false, msg: "invalid token" });
-    }
-   
-    let newSurvey = req.body
-    let myId = req.headers["id"]
- 
-      if(myId !== "new"){
-        await surveyModel.replaceOne({_id:myId},newSurvey);
-        return res.json({ success: true });
-      }else{
-        await surveyModel.insertMany(newSurvey);
-        return res.json({ success: true });
+      if (!token) {
+        return res.json({ success: false, msg: "token required" });
       }
-  
-}
+      try {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      } catch (err) {
+        return res.json({ success: false, msg: "invalid token" });
+      }
+    }
+
+    let newSurvey = req.body;
+    let myId = req.headers["id"];
+
+    if (myId !== "new") {
+      await surveyModel.replaceOne({ _id: myId }, newSurvey);
+      return res.json({ success: true });
+    } else {
+      await surveyModel.insertMany(newSurvey);
+      return res.json({ success: true });
+    }
+  }
   res.json({ success: false });
 }
 

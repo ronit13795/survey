@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useSession } from "next-auth/react";
 
 export default function MySurveys({
   setNewSurvey,
@@ -20,11 +21,16 @@ export default function MySurveys({
   setId,
   host,
 }) {
+  let { data: session } = useSession();
   let creator;
   let userName;
   if (typeof window !== "undefined") {
-    creator = jwt.decode(localStorage.getItem("accessToken"));
-    userName = creator.userName;
+    if (session) {
+      userName = session.user.email;
+    } else {
+      creator = jwt.decode(localStorage.getItem("accessToken"));
+      userName = creator.userName;
+    }
   }
 
   const [surveys, setSurveys] = useState([]);
