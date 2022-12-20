@@ -19,4 +19,4 @@ const surveySchema = new mongoose.Schema({
   
   });
   
-  module.exports = mongoose.models.survey || mongoose.model("survey", surveySchema);
+  module.exports = mongoose?.models?.survey || mongoose.model("survey", surveySchema);

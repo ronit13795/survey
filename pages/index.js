@@ -3,7 +3,7 @@ import style from "../styles/header.module.css";
 import dbConnect from "../lib/dbConnect";
 import { useRouter } from "next/router";
 
-export default function Home({ survey }) {
+export default function Home() {
   const router = useRouter();
   const checkDetail = () => {
     if (localStorage.getItem("accessToken")) {
@@ -13,24 +13,22 @@ export default function Home({ survey }) {
   };
   return (
     <Fragment>
-      <header className={style.header}>
-        <button
-          onClick={() => {
-            checkDetail();
-          }}
-          className={style.btn}
-        >
-          Admin
-        </button>
-        <button
-          onClick={() => {
-            return router.push("/SignUp");
-          }}
-          className={style.btn}
-        >
-          Sign Up
-        </button>
-      </header>
+      <button
+        onClick={() => {
+          checkDetail();
+        }}
+        className={style.btn}
+      >
+        Sign In
+      </button>
+      <button
+        onClick={() => {
+          return router.push("/SignUp");
+        }}
+        className={style.btn}
+      >
+        Sign Up
+      </button>
     </Fragment>
   );
 }
