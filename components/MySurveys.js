@@ -29,7 +29,8 @@ export default function MySurveys({
       userName = session.user.email;
     } else {
       creator = jwt.decode(localStorage.getItem("accessToken"));
-      userName = creator.userName;
+
+      userName = creator?.userName;
     }
   }
 
