@@ -172,7 +172,7 @@ export default function Login() {
               <Copyright sx={{ mt: 5 }} />
             </Box>
             {session ? <div>you are sign in </div> : <div>not sign in</div>}
-            <button onClick={signIn}>sign in with github</button>
+            <button onClick={signIn}>sign in with github/google</button>
             <button onClick={signOut}>sign out</button>
           </Box>
         </Grid>
