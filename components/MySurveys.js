@@ -23,8 +23,9 @@ export default function MySurveys({
 }) {
   const router = useRouter();
   const { data: session } = useSession();
+
   if (typeof window !== "undefined") {
-    if (!session) {
+    if (!session && !localStorage.getItem("accessToken")) {
       console.log(session);
       router.push("/Login");
     }
@@ -91,7 +92,14 @@ export default function MySurveys({
       >
         New Survey
       </Button>
-      <button onClick={signOut}>sign out</button>
+      <button
+        onClick={() => {
+          signOut();
+          localStorage.removeItem("accessToken");
+        }}
+      >
+        sign out
+      </button>
 
       {surveys.map((mySurvey, index) => {
         return (
