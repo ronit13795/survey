@@ -7,8 +7,12 @@ import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 import SurveyPassword from "./SurveyPassword";
 import jwt from "jsonwebtoken";
-import { useEffect } from "react";
 import { useSession } from "next-auth/react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export default function SidebarRight({
   questions,
@@ -27,8 +31,27 @@ export default function SidebarRight({
   setSurveyPw,
   _id,
   setId,
+  category,
+  setCategory,
 }) {
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
+  const optionsForCategory = [
+    "health",
+    "leisure",
+    "recreation",
+    "Working",
+    "Society",
+    "technology",
+    "science",
+    "culture",
+    "Habits",
+    "Social Sciences",
+    "Behavioral Sciences",
+    "hobbies",
+    "Social Network",
+    "Studies",
+    "general",
+  ];
   const { data: session } = useSession();
   let creator;
   let userName;
@@ -60,6 +83,7 @@ export default function SidebarRight({
     let completePages = [firstPage, ...pages];
 
     const surveyPlaceholder = {
+      category: category || "general",
       title: title || "empty title",
       showProgressBar: "bottom",
       showTimerPanel: "top",
@@ -124,6 +148,7 @@ export default function SidebarRight({
     setTimeFinish("");
     setTimePage("");
     setPages([]);
+    setCategory("");
   };
 
   const questionsSum = () => {
@@ -251,6 +276,34 @@ export default function SidebarRight({
         </Divider>
 
         <hr />
+        <Divider>
+          <Toolbar>
+            <FormControl required sx={{ m: 1, minWidth: 122 }}>
+              <InputLabel id="demo-simple-select-required-label">
+                choose category for this survey
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
+                value={category}
+                label="Category*"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  console.log(category);
+                }}
+              >
+                {optionsForCategory.map((category, i) => {
+                  return (
+                    <MenuItem key={i} value={category}>
+                      {category}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+              <FormHelperText>Required</FormHelperText>
+            </FormControl>
+          </Toolbar>
+        </Divider>
 
         <Divider>
           <Toolbar>

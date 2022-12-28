@@ -22,6 +22,7 @@ export default function Survey({
   setTimeFinish,
   setSurveyPw,
   setId,
+  setCategory,
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const host = window.location.href.split("/Admin")[0];
@@ -113,6 +114,7 @@ export default function Survey({
             setId(survey._id);
             setMySurveys(false);
             setNewSurvey(true);
+            setCategory(survey.category);
           }}
         >
           <EditIcon />

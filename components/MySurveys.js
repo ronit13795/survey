@@ -20,6 +20,7 @@ export default function MySurveys({
   setSurveyPw,
   setId,
   host,
+  setCategory,
 }) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -115,6 +116,7 @@ export default function MySurveys({
             setTimePage={setTimePage}
             setTimeFinish={setTimeFinish}
             setSurveyPw={setSurveyPw}
+            setCategory={setCategory}
             setId={setId}
             host={host}
           />

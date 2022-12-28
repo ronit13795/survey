@@ -16,15 +16,16 @@ export default function Admin({ host }) {
   const [maxTimeToFinishPage, setTimePage] = useState("");
   const [maxTimeToFinish, setTimeFinish] = useState("");
   const [surveyPw, setSurveyPw] = useState("");
+  const [category, setCategory] = useState("");
   const [id, setId] = useState("new");
 
   const addPage = () => {
     setPages((pages) => [...pages, { elements: [] }]);
   };
 
-  useEffect(() => {
-    console.log(pages);
-  }, [pages]);
+  // useEffect(() => {
+  //   console.log(pages);
+  // }, [pages]);
 
   const deletePage = (index) => {
     const updatedPages = pages.filter((page, i) => {
@@ -64,6 +65,8 @@ export default function Admin({ host }) {
             setPages={setPages}
             _id={id}
             setId={setId}
+            category={category}
+            setCategory={setCategory}
           />
         </Fragment>
       );
@@ -82,6 +85,7 @@ export default function Admin({ host }) {
           setTimePage={setTimePage}
           setTimeFinish={setTimeFinish}
           setSurveyPw={setSurveyPw}
+          setCategory={setCategory}
           setId={setId}
         />
       )}
