@@ -1,0 +1,12 @@
+.market-container{
+ width: 180px;
+ height: 180px;
+ display: flex;
+ margin: 15px;
+ justify-content: center;
+ align-items: center;
+}
+.market-container Button{
+  width: 180px;
+  height: 180px;
+}
