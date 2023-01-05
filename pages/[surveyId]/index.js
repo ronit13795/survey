@@ -2,7 +2,9 @@ import dbConnect from "../../lib/dbConnect";
 import surveyModel from "../../models/survey";
 import dynamic from "next/dynamic";
 import DialogPs from "../../components/DialogPs";
-import { useState } from "react";
+import { useState,useCallback ,useMemo} from "react";
+import styled from "styled-components";
+import { modernCss } from "survey-core";
 
 const DynamicForm = dynamic(() => import("../../components/Form"), {
   ssr: false,
@@ -11,6 +13,16 @@ const DynamicForm = dynamic(() => import("../../components/Form"), {
 export default function Survey({ survey }) {
   const [userPassword, setUserPassword] = useState(null);
   const [openModal, setOpenModal] = useState(!!survey.surveyPw);
+  const[button,setButton] = useState(false);
+ 
+
+
+
+  const showSurvey = useMemo(() => <DynamicForm survey={survey} setButton={setButton} />, []);
+
+    // const StyledBackgroundColor = styled.sd-container-modern`backgroundColor:${survey}`
+    
+  
   const checkValidPassword = () => {
     if (survey.surveyPw === userPassword) return setOpenModal(false);
   };
@@ -22,7 +34,10 @@ export default function Survey({ survey }) {
       />
     );
   }
-  return <DynamicForm survey={survey} />;
+  return<div>
+     {showSurvey}
+    {button && <button>ok</button>}
+     </div> 
 }
 
 export async function getServerSideProps(context) {
