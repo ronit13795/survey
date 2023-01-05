@@ -10,8 +10,10 @@ const surveySchema = new mongoose.Schema({
   firstPageIsStarted: Boolean,
   startSurveyText: String,
   pages: Array,
+  CSS: Object,
   surveyPw: String,
   creator: String,
+  background: String,
   completedHtml: String,
   completedHtmlOnCondition: Array,
 });
