@@ -14,6 +14,8 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+
+
 export default function SidebarRight({
   questions,
   setPages,
@@ -33,6 +35,8 @@ export default function SidebarRight({
   setId,
   category,
   setCategory,
+  setBackgroundColor,
+  backgroundColor
 }) {
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
   const optionsForCategory = [
@@ -78,6 +82,9 @@ export default function SidebarRight({
           isRequired: true,
         },
       ],
+      CSS:{
+       body:{"background-color": "#ff0000"}
+      }
     };
 
     let completePages = [firstPage, ...pages];
@@ -94,6 +101,7 @@ export default function SidebarRight({
       pages: completePages,
       surveyPw,
       creator: userName,
+      background:backgroundColor || "",
       completedHtml: "<h4>thank you for your time.</h4>",
 
       // completedHtmlOnCondition: [
@@ -134,6 +142,7 @@ export default function SidebarRight({
         if (json.success) {
           alert("updated successfully");
           resetAll();
+          console.log(survey);
         } else alert(json.msg);
       })
       .catch((err) => {
@@ -320,6 +329,21 @@ export default function SidebarRight({
         </Divider>
         <hr />
         {surveyPassword()}
+
+        <Divider>
+          <Toolbar>
+            <input
+              value={backgroundColor}
+              onChange={(e) => {
+                setBackgroundColor(e.target.value);
+              }}
+              type="color"
+              placeholder="Background color survey"
+            />
+            Background color survey
+          </Toolbar>
+        </Divider>
+        <hr/>
 
         <Divider>
           <Toolbar>
