@@ -1,11 +1,15 @@
 import "survey-core/defaultV2.min.css";
 import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
-import { useCallback } from "react";
+import { useCallback ,useState,useEffect} from "react";
+import { style } from "@mui/system/Stack/createStack";
+import { blue } from "@mui/material/colors";
+
 
 StylesManager.applyTheme("defaultV2");
 
-export default function Form({ survey }) {
+export default function Form({ survey,setButton }) {
+
   const surveyToShow = new Model(survey);
   const alertResults = useCallback((sender) => {
     const results = JSON.stringify(sender.data);
@@ -26,12 +30,26 @@ export default function Form({ survey }) {
       .then((json) => {
         if (json.success) {
           console.log("updated successfully");
+          setButton(true)
         } else alert(json.msg);
       })
       .catch((err) => {
         alert("fatal error please try again latter");
       });
   }, []);
-  surveyToShow.onComplete.add(alertResults);
-  return <Survey model={surveyToShow} />;
+ console.log(survey);
+
+surveyToShow.onComplete.add(alertResults);
+
+useEffect(()=>{
+  document.getElementsByClassName("sd-container-modern")[0].style.backgroundColor = survey.background
+  document.getElementsByTagName("body")[0].style.backgroundColor = survey.background
+},[])
+ 
+
+  return (
+  <div>
+    <Survey model={surveyToShow} />
+    </div>
+  )
 }
