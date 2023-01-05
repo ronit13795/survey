@@ -18,6 +18,7 @@ export default function Admin({ host }) {
   const [surveyPw, setSurveyPw] = useState("");
   const [category, setCategory] = useState("");
   const [id, setId] = useState("new");
+  const [backgroundColor,setBackgroundColor] = useState("")
 
   const addPage = () => {
     setPages((pages) => [...pages, { elements: [] }]);
@@ -26,7 +27,7 @@ export default function Admin({ host }) {
   // useEffect(() => {
   //   console.log(pages);
   // }, [pages]);
-
+  // document.getElementsByClassName(".sd-container-modern").style.backgroundColor = survey.backgroundColor
   const deletePage = (index) => {
     const updatedPages = pages.filter((page, i) => {
       return index != i;
@@ -67,6 +68,8 @@ export default function Admin({ host }) {
             setId={setId}
             category={category}
             setCategory={setCategory}
+            setBackgroundColor={setBackgroundColor}
+            backgroundColor={backgroundColor}
           />
         </Fragment>
       );
