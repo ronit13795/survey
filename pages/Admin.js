@@ -7,6 +7,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useState } from "react";
 import React from "react";
 import MySurveys from "../components/MySurveys";
+import { TextareaAutosize } from "@mui/material";
 
 export default function Admin({ host }) {
   const [pages, setPages] = useState([]);
@@ -19,6 +20,12 @@ export default function Admin({ host }) {
   const [category, setCategory] = useState("");
   const [id, setId] = useState("new");
   const [backgroundColor,setBackgroundColor] = useState("")
+  const [titleColor,setTitleColor] = useState("")
+  const [titleSize,setTitleSize] = useState("");
+  const [textColor,setTextColor] = useState("")
+  const [textSize,setTextSize] = useState("");
+  const [btnBackground,setBtnBackground] = useState("");
+  const [btnColor,setBtnColor] = useState("")
 
   const addPage = () => {
     setPages((pages) => [...pages, { elements: [] }]);
@@ -70,6 +77,19 @@ export default function Admin({ host }) {
             setCategory={setCategory}
             setBackgroundColor={setBackgroundColor}
             backgroundColor={backgroundColor}
+            setTitleColor={setTitleColor}
+            titleColor={titleColor}
+            setTitleSize = {setTitleSize}
+            titleSize={titleSize}
+            setTextColor={setTextColor}
+            textColor={textColor}
+            setTextSize={setTextSize}
+            textSize={textSize}
+            setBtnBackground={setBtnBackground}
+            btnBackground={btnBackground}
+            setBtnColor={setBtnColor}
+            btnColor={btnColor}
+
           />
         </Fragment>
       );

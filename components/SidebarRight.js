@@ -13,6 +13,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import { background } from "@chakra-ui/react";
 
 
 
@@ -36,7 +40,19 @@ export default function SidebarRight({
   category,
   setCategory,
   setBackgroundColor,
-  backgroundColor
+  backgroundColor,
+  setTitleColor,
+  titleColor,
+  setTitleSize,
+  titleSize,
+  setTextColor,
+  textColor,
+  setTextSize,
+  textSize,
+  setBtnBackground,
+  btnBackground,
+  setBtnColor,
+  btnColor,
 }) {
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
   const optionsForCategory = [
@@ -102,6 +118,12 @@ export default function SidebarRight({
       surveyPw,
       creator: userName,
       background:backgroundColor || "",
+      titleColor,
+      titleSize,
+      textColor,
+      textSize,
+      btnBackground,
+      btnColor,
       completedHtml: "<h4>thank you for your time.</h4>",
 
       // completedHtmlOnCondition: [
@@ -330,7 +352,7 @@ export default function SidebarRight({
         <hr />
         {surveyPassword()}
 
-        <Divider>
+        {/* <Divider>
           <Toolbar>
             <input
               value={backgroundColor}
@@ -342,8 +364,81 @@ export default function SidebarRight({
             />
             Background color survey
           </Toolbar>
+        </Divider> */}
+        
+        <Divider>
+          <Toolbar>
+            <Accordion>
+              <AccordionSummary>
+                <Typography>items style</Typography>
+              </AccordionSummary>
+
+              <AccordionDetails>
+          <Typography>background color</Typography>
+         <input
+          type="color"
+          name="background"
+          value={backgroundColor}
+          onChange={(e)=>{setBackgroundColor(e.target.value)}}
+          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
+         />
+         <label for="background">Background</label>
+        </AccordionDetails>
+
+          <AccordionDetails>
+          <Typography>title color</Typography>
+         <input
+          type="color"
+          name="title"
+          value={titleColor}
+          onChange={(e)=>{setTitleColor(e.target.value)}}
+          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
+         />
+         <label for="title">Title</label>
+        </AccordionDetails>
+
+          <AccordionDetails>
+          <Typography>text color</Typography>
+          <input
+          type="color"
+          name="text"
+          value={textColor}
+          onChange={(e)=>{setTextColor(e.target.value)}}
+          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
+         />
+         <label for="text">Text</label>
+        </AccordionDetails>
+
+        <AccordionDetails>
+          <Typography>button backgroundColor</Typography>
+          <input
+          type="color"
+          name="btnBackground"
+          value={btnBackground}
+          onChange={(e)=>{setBtnBackground(e.target.value)}}
+          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
+         />
+         <label for="btnBackground">Button</label>
+        </AccordionDetails>
+
+        <AccordionDetails>
+          <Typography>button text color</Typography>
+          <input
+          type="color"
+          name="btnColor"
+          value={btnColor}
+          onChange={(e)=>{setBtnColor(e.target.value)}}
+          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
+         />
+         <label for="btnColor">Button color</label>
+        </AccordionDetails>
+            </Accordion>
+           
+          
+           
+            
+          </Toolbar>
         </Divider>
-        <hr/>
 
         <Divider>
           <Toolbar>

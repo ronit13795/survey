@@ -14,6 +14,12 @@ const surveySchema = new mongoose.Schema({
   surveyPw: String,
   creator: String,
   background: String,
+  titleColor:String,
+  titleSize:String,
+  textColor:String,
+  textSize:String,
+  btnBackground:String,
+  btnColor:String,
   completedHtml: String,
   completedHtmlOnCondition: Array,
 });

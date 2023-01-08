@@ -15,7 +15,7 @@ export default function Survey({ survey }) {
   const [openModal, setOpenModal] = useState(!!survey.surveyPw);
   const[button,setButton] = useState(false);
  
-
+console.log(survey);
 
 
   const showSurvey = useMemo(() => <DynamicForm survey={survey} setButton={setButton} />, []);

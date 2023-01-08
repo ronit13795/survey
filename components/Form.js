@@ -3,7 +3,7 @@ import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import { useCallback ,useState,useEffect} from "react";
 import { style } from "@mui/system/Stack/createStack";
-import { blue } from "@mui/material/colors";
+import { blue, red } from "@mui/material/colors";
 
 
 StylesManager.applyTheme("defaultV2");
@@ -44,6 +44,10 @@ surveyToShow.onComplete.add(alertResults);
 useEffect(()=>{
   document.getElementsByClassName("sd-container-modern")[0].style.backgroundColor = survey.background
   document.getElementsByTagName("body")[0].style.backgroundColor = survey.background
+  document.getElementsByTagName("body")[0].style.color = survey.textColor
+ document.getElementsByClassName("sv-string-viewer")[0].style.color = survey.titleColor
+document.getElementsByClassName("sd-btn")[0].style.color = survey.btnColor
+document.getElementsByClassName("sd-btn")[0].style.backgroundColor = survey.btnBackground
 },[])
  
 
