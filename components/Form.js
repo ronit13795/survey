@@ -45,7 +45,9 @@ useEffect(()=>{
   document.getElementsByClassName("sd-container-modern")[0].style.backgroundColor = survey.background
   document.getElementsByTagName("body")[0].style.backgroundColor = survey.background
   document.getElementsByTagName("body")[0].style.color = survey.textColor
+  document.getElementsByTagName("body")[0].style.fontSize = survey.textSize
  document.getElementsByClassName("sv-string-viewer")[0].style.color = survey.titleColor
+ document.getElementsByClassName("sv-string-viewer")[0].style.fontSize = survey.titleSize
 document.getElementsByClassName("sd-btn")[0].style.color = survey.btnColor
 document.getElementsByClassName("sd-btn")[0].style.backgroundColor = survey.btnBackground
 },[])
