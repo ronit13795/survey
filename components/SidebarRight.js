@@ -72,6 +72,7 @@ export default function SidebarRight({
     "Studies",
     "general",
   ];
+  const optionFortextSize = ["large","larger","medium","small","smaller","x-large","x-small","xx-large","xx-small"];
   const { data: session } = useSession();
   let creator;
   let userName;
@@ -180,6 +181,13 @@ export default function SidebarRight({
     setTimePage("");
     setPages([]);
     setCategory("");
+    setBackgroundColor("")
+    setBtnBackground("")
+    setBtnColor("");
+    setTextColor("")
+    setTextSize("")
+    setTitleColor('')
+    setTitleSize("")
   };
 
   const questionsSum = () => {
@@ -352,19 +360,6 @@ export default function SidebarRight({
         <hr />
         {surveyPassword()}
 
-        {/* <Divider>
-          <Toolbar>
-            <input
-              value={backgroundColor}
-              onChange={(e) => {
-                setBackgroundColor(e.target.value);
-              }}
-              type="color"
-              placeholder="Background color survey"
-            />
-            Background color survey
-          </Toolbar>
-        </Divider> */}
         
         <Divider>
           <Toolbar>
@@ -432,6 +427,46 @@ export default function SidebarRight({
          />
          <label for="btnColor">Button color</label>
         </AccordionDetails>
+
+        <AccordionDetails>
+        <InputLabel id="demo-simple-select-required-label">
+                Font size
+         </InputLabel>
+        <Select
+                value={textSize}
+                onChange={(e) => {
+                  setTextSize(e.target.value);
+                }}
+              >
+                {optionFortextSize.map((size, i) => {
+                  return (
+                    <MenuItem key={i} value={size}>
+                      {size}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+        </AccordionDetails>
+
+        <AccordionDetails>
+        <InputLabel id="demo-simple-select-required-label">
+                Title size
+         </InputLabel>
+        <Select
+                value={titleSize}
+                onChange={(e) => {
+                  setTitleSize(e.target.value);
+                }}
+              >
+                {optionFortextSize.map((size, i) => {
+                  return (
+                    <MenuItem key={i} value={size}>
+                      {size}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+        </AccordionDetails>
             </Accordion>
            
           
@@ -486,3 +521,21 @@ export default function SidebarRight({
     </div>
   );
 }
+{/* <Select
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
+                value={category}
+                label="Category*"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  console.log(category);
+                }}
+              >
+                {optionsForCategory.map((category, i) => {
+                  return (
+                    <MenuItem key={i} value={category}>
+                      {category}
+                    </MenuItem>
+                  );
+                })}
+              </Select> */}
