@@ -77,7 +77,7 @@ export default function Form({ survey, setButton }) {
   };
 
   return (
-    <StyledCSS btnColor={survey.btnColor} backGroundBtn={survey.backGroundBtn}>
+    <StyledCSS btnColor={survey.btnColor} backGroundBtn={survey.btnBackground}>
       <Survey model={surveyToShow} css={myCss} />
     </StyledCSS>
   );
