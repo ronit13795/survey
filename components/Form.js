@@ -10,7 +10,7 @@ StylesManager.applyTheme("defaultV2");
 
 export const StyledCSS = styled.div`
   .myCustomClass {
-    color: ${(props) => props.colorBtnText};
+    color: ${(props) => props.btnColor};
     background-color: ${(props) => props.backGroundBtn};
   }
 `;
@@ -77,10 +77,7 @@ export default function Form({ survey, setButton }) {
   };
 
   return (
-    <StyledCSS
-      colorBtnText={survey.btnColor || "green"}
-      backGroundBtn={survey.backGroundBtn || "red"}
-    >
+    <StyledCSS btnColor={survey.btnColor} backGroundBtn={survey.backGroundBtn}>
       <Survey model={surveyToShow} css={myCss} />
     </StyledCSS>
   );
