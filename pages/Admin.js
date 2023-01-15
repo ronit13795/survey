@@ -104,6 +104,8 @@ export default function Admin({ host }) {
               setShow(false);
               document.getElementsByTagName("body")[0].style.backgroundColor =
                 "white";
+              document.getElementsByTagName("body")[0].style.color = "black";
+              document.getElementsByTagName("body")[0].style.fontSize = "1em";
             }}
           >
             Back to editing
