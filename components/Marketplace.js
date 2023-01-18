@@ -12,9 +12,7 @@ import MarketSurvey from './MarketSurvey';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Input } from '@mui/material';
 
-
 export default function Marketplace({survey}) {
-
     
     const[search,setSearch] = useState("");
     const[category,setCategory] = useState("");
@@ -22,9 +20,9 @@ export default function Marketplace({survey}) {
     const [sortFlag, setSortFlag] = useState(false);
     const [totalResults,setTotalResults] = useState([])
 
+    const [counter, setCounter] = useState(0)
 
     useEffect(()=>{
-      
       if(category === "" && search === ""){
         setTotalResults(surveys)
       }
@@ -97,15 +95,15 @@ export default function Marketplace({survey}) {
         setSortFlag(!sortFlag)
     }}
     >sort by name</Button>
-    
      </div>
+
      <hr/>
+
    <div className='marketplace-body'>
         {totalResults.map((mySurvey,index)=>{
-            return <MarketSurvey survey={mySurvey} key={index}/>
+            return <MarketSurvey survey={mySurvey} key={index} counter={counter} setCounter={setCounter}/>
         })}
       </div>
-     
         
     </div>
   )

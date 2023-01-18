@@ -27,6 +27,8 @@ export default function Admin({ host }) {
   const [btnBackground,setBtnBackground] = useState("");
   const [btnColor,setBtnColor] = useState("")
 
+  const [recorder, setRecorder] = useState("");
+
   const addPage = () => {
     setPages((pages) => [...pages, { elements: [] }]);
   };
@@ -89,7 +91,8 @@ export default function Admin({ host }) {
             btnBackground={btnBackground}
             setBtnColor={setBtnColor}
             btnColor={btnColor}
-
+            recorder={recorder}
+            setRecorder={setRecorder}
           />
         </Fragment>
       );

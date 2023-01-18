@@ -1,12 +1,15 @@
 import "survey-core/defaultV2.min.css";
 import { StylesManager, Model } from "survey-core";
 import { Survey } from "survey-react-ui";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useRef, Fragment } from "react";
 import { style } from "@mui/system/Stack/createStack";
 import { blue, red } from "@mui/material/colors";
 import styled from "styled-components";
+import fetch from 'isomorphic-unfetch'
 
-StylesManager.applyTheme("defaultV2");
+if (typeof document !== 'undefined') {
+  StylesManager.applyTheme("defaultV2");
+}
 
 export const StyledCSS = styled.div`
   .myCustomClass {
@@ -15,7 +18,8 @@ export const StyledCSS = styled.div`
   }
 `;
 
-export default function Form({ survey, setButton }) {
+export default function Form({ survey, setButton, handleStartQuiz }) {
+
   const surveyToShow = new Model(survey);
   const alertResults = useCallback((sender) => {
     const results = JSON.stringify(sender.data);
@@ -48,9 +52,7 @@ export default function Form({ survey, setButton }) {
         alert("fatal error please try again latter");
       });
   }, []);
-  console.log(survey);
-
-  surveyToShow.onComplete.add(alertResults);
+  // console.log(survey);
 
   useEffect(() => {
     document.getElementsByClassName(
@@ -64,10 +66,13 @@ export default function Form({ survey, setButton }) {
       survey.titleColor;
     document.getElementsByClassName("sv-string-viewer")[0].style.fontSize =
       survey.titleSize;
-    document.getElementsByClassName("sd-btn")[0].style.color = survey.btnColor;
-    document.getElementsByClassName("sd-btn")[0].style.backgroundColor =
-      survey.btnBackground;
+      const btn = document.getElementsByClassName("sd-btn")[0];
+      btn.style.color = survey.btnColor;
+      btn.style.backgroundColor = survey.btnBackground;
+      btn.addEventListener("click", () =>{handleStartQuiz()});
   }, []);
+
+  surveyToShow.onComplete.add(alertResults);
 
   const myCss = {
     navigation: {
@@ -77,8 +82,10 @@ export default function Form({ survey, setButton }) {
   };
 
   return (
+    <Fragment>
     <StyledCSS btnColor={survey.btnColor} backGroundBtn={survey.btnBackground}>
       <Survey model={surveyToShow} css={myCss} />
     </StyledCSS>
+    </Fragment>
   );
 }

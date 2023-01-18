@@ -29,6 +29,14 @@ export default function Home() {
       >
         Sign Up
       </button>
+      <button
+        onClick={() => {
+         router.push("/SurveysMarketplace");
+        }}
+        className={style.btn}
+      >
+        Surveys
+      </button>
     </Fragment>
   );
 }

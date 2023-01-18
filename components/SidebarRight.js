@@ -53,6 +53,8 @@ export default function SidebarRight({
   btnBackground,
   setBtnColor,
   btnColor,
+  recorder,
+  setRecorder,
 }) {
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
   const optionsForCategory = [
@@ -84,6 +86,13 @@ export default function SidebarRight({
       userName = creator.userName;
     }
   }
+
+  const optionsForRecord=[
+    "none",
+    "video recorder",
+    "audio recorder",
+    "speech recognition",
+   ]
 
   const buildSurvey = () => {
     const firstPage = {
@@ -125,6 +134,7 @@ export default function SidebarRight({
       textSize,
       btnBackground,
       btnColor,
+      recorder,
       completedHtml: "<h4>thank you for your time.</h4>",
 
       // completedHtmlOnCondition: [
@@ -165,11 +175,11 @@ export default function SidebarRight({
         if (json.success) {
           alert("updated successfully");
           resetAll();
-          console.log(survey);
+          // console.log(survey);
         } else alert(json.msg);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("fatal error please try again latter");
       });
     setId("new");
@@ -237,7 +247,38 @@ export default function SidebarRight({
             Properties
           </Typography>
         </Toolbar>
+
         <hr />
+
+        <Divider>
+          <Toolbar>
+            <FormControl required sx={{ m: 1, minWidth: 122 }}>
+              <InputLabel id="demo-simple-select-required-label">
+                record
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
+                value={recorder}
+                label="Record"
+                onChange={(e) => {
+                  setRecorder(e.target.value);
+                  console.log(recorder);
+                }}
+              >
+                {optionsForRecord.map((recorder, i) => {
+                  return (
+                    <MenuItem key={i} value={recorder}>
+                      {recorder}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Toolbar>
+        </Divider>
+
+        <hr/>
 
         <Divider>
           <Toolbar>

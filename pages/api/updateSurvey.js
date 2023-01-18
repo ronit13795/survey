@@ -29,7 +29,7 @@ async function updateSurvey(req, res) {
     } else {
       await surveyModel.insertMany(newSurvey);
      let res1 = await surveyModel.find()
-     console.log(res1);
+    //  console.log(res1);
       return res.json({ success: true });
     }
   }
