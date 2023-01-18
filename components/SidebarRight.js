@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
@@ -14,13 +14,24 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Accordion from "@mui/material/Accordion";
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
 import { background } from "@chakra-ui/react";
+import "survey-core/defaultV2.min.css";
+import { StylesManager, Model } from "survey-core";
+import { Survey } from "survey-react-ui";
+import styled from "styled-components";
 
-
+export const StyledCSS = styled.div`
+  .myCustomClass {
+    color: ${(props) => props.btnColor};
+    background-color: ${(props) => props.backGroundBtn};
+  }
+`;
 
 export default function SidebarRight({
+  setSurveyToShow,
+  setShow,
   questions,
   setPages,
   pages,
@@ -57,6 +68,7 @@ export default function SidebarRight({
   setRecorder,
 }) {
   const [showSurveyPassword, setShowSurveyPassword] = useState(false);
+  const [preview, setPreview] = useState(false);
   const optionsForCategory = [
     "health",
     "leisure",
@@ -74,7 +86,17 @@ export default function SidebarRight({
     "Studies",
     "general",
   ];
-  const optionFortextSize = ["large","larger","medium","small","smaller","x-large","x-small","xx-large","xx-small"];
+  const optionFortextSize = [
+    "large",
+    "larger",
+    "medium",
+    "small",
+    "smaller",
+    "x-large",
+    "x-small",
+    "xx-large",
+    "xx-small",
+  ];
   const { data: session } = useSession();
   let creator;
   let userName;
@@ -108,9 +130,9 @@ export default function SidebarRight({
           isRequired: true,
         },
       ],
-      CSS:{
-       body:{"background-color": "#ff0000"}
-      }
+      CSS: {
+        body: { "background-color": "#ff0000" },
+      },
     };
 
     let completePages = [firstPage, ...pages];
@@ -127,7 +149,7 @@ export default function SidebarRight({
       pages: completePages,
       surveyPw,
       creator: userName,
-      background:backgroundColor || "",
+      background: backgroundColor || "",
       titleColor,
       titleSize,
       textColor,
@@ -191,13 +213,13 @@ export default function SidebarRight({
     setTimePage("");
     setPages([]);
     setCategory("");
-    setBackgroundColor("")
-    setBtnBackground("")
+    setBackgroundColor("");
+    setBtnBackground("");
     setBtnColor("");
-    setTextColor("")
-    setTextSize("")
-    setTitleColor('')
-    setTitleSize("")
+    setTextColor("");
+    setTextSize("");
+    setTitleColor("");
+    setTitleSize("");
   };
 
   const questionsSum = () => {
@@ -401,7 +423,6 @@ export default function SidebarRight({
         <hr />
         {surveyPassword()}
 
-        
         <Divider>
           <Toolbar>
             <Accordion>
@@ -410,109 +431,155 @@ export default function SidebarRight({
               </AccordionSummary>
 
               <AccordionDetails>
-          <Typography>background color</Typography>
-         <input
-          type="color"
-          name="background"
-          value={backgroundColor}
-          onChange={(e)=>{setBackgroundColor(e.target.value)}}
-          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
-         />
-         <label for="background">Background</label>
-        </AccordionDetails>
+                <Typography>background color</Typography>
+                <input
+                  type="color"
+                  name="background"
+                  value={backgroundColor}
+                  onChange={(e) => {
+                    setBackgroundColor(e.target.value);
+                  }}
+                  style={{
+                    width: "50px",
+                    height: "40px",
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    border: "none",
+                    backgroundColor: "transparent",
+                    MozAppearance: "none",
+                  }}
+                />
+                <label for="background">Background</label>
+              </AccordionDetails>
 
-          <AccordionDetails>
-          <Typography>title color</Typography>
-         <input
-          type="color"
-          name="title"
-          value={titleColor}
-          onChange={(e)=>{setTitleColor(e.target.value)}}
-          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
-         />
-         <label for="title">Title</label>
-        </AccordionDetails>
+              <AccordionDetails>
+                <Typography>title color</Typography>
+                <input
+                  type="color"
+                  name="title"
+                  value={titleColor}
+                  onChange={(e) => {
+                    setTitleColor(e.target.value);
+                  }}
+                  style={{
+                    width: "50px",
+                    height: "40px",
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    border: "none",
+                    backgroundColor: "transparent",
+                    MozAppearance: "none",
+                  }}
+                />
+                <label for="title">Title</label>
+              </AccordionDetails>
 
-          <AccordionDetails>
-          <Typography>text color</Typography>
-          <input
-          type="color"
-          name="text"
-          value={textColor}
-          onChange={(e)=>{setTextColor(e.target.value)}}
-          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
-         />
-         <label for="text">Text</label>
-        </AccordionDetails>
+              <AccordionDetails>
+                <Typography>text color</Typography>
+                <input
+                  type="color"
+                  name="text"
+                  value={textColor}
+                  onChange={(e) => {
+                    setTextColor(e.target.value);
+                  }}
+                  style={{
+                    width: "50px",
+                    height: "40px",
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    border: "none",
+                    backgroundColor: "transparent",
+                    MozAppearance: "none",
+                  }}
+                />
+                <label for="text">Text</label>
+              </AccordionDetails>
 
-        <AccordionDetails>
-          <Typography>button backgroundColor</Typography>
-          <input
-          type="color"
-          name="btnBackground"
-          value={btnBackground}
-          onChange={(e)=>{setBtnBackground(e.target.value)}}
-          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
-         />
-         <label for="btnBackground">Button</label>
-        </AccordionDetails>
+              <AccordionDetails>
+                <Typography>button backgroundColor</Typography>
+                <input
+                  type="color"
+                  name="btnBackground"
+                  value={btnBackground}
+                  onChange={(e) => {
+                    setBtnBackground(e.target.value);
+                  }}
+                  style={{
+                    width: "50px",
+                    height: "40px",
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    border: "none",
+                    backgroundColor: "transparent",
+                    MozAppearance: "none",
+                  }}
+                />
+                <label for="btnBackground">Button</label>
+              </AccordionDetails>
 
-        <AccordionDetails>
-          <Typography>button text color</Typography>
-          <input
-          type="color"
-          name="btnColor"
-          value={btnColor}
-          onChange={(e)=>{setBtnColor(e.target.value)}}
-          style = {{width:"50px",height:"40px",appearance:'none',WebkitAppearance:"none",border:"none",backgroundColor:"transparent",MozAppearance:"none"}}
-         />
-         <label for="btnColor">Button color</label>
-        </AccordionDetails>
+              <AccordionDetails>
+                <Typography>button text color</Typography>
+                <input
+                  type="color"
+                  name="btnColor"
+                  value={btnColor}
+                  onChange={(e) => {
+                    setBtnColor(e.target.value);
+                  }}
+                  style={{
+                    width: "50px",
+                    height: "40px",
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    border: "none",
+                    backgroundColor: "transparent",
+                    MozAppearance: "none",
+                  }}
+                />
+                <label for="btnColor">Button color</label>
+              </AccordionDetails>
 
-        <AccordionDetails>
-        <InputLabel id="demo-simple-select-required-label">
-                Font size
-         </InputLabel>
-        <Select
-                value={textSize}
-                onChange={(e) => {
-                  setTextSize(e.target.value);
-                }}
-              >
-                {optionFortextSize.map((size, i) => {
-                  return (
-                    <MenuItem key={i} value={size}>
-                      {size}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-        </AccordionDetails>
+              <AccordionDetails>
+                <InputLabel id="demo-simple-select-required-label">
+                  Font size
+                </InputLabel>
+                <Select
+                  value={textSize}
+                  onChange={(e) => {
+                    setTextSize(e.target.value);
+                  }}
+                >
+                  {optionFortextSize.map((size, i) => {
+                    return (
+                      <MenuItem key={i} value={size}>
+                        {size}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </AccordionDetails>
 
-        <AccordionDetails>
-        <InputLabel id="demo-simple-select-required-label">
-                Title size
-         </InputLabel>
-        <Select
-                value={titleSize}
-                onChange={(e) => {
-                  setTitleSize(e.target.value);
-                }}
-              >
-                {optionFortextSize.map((size, i) => {
-                  return (
-                    <MenuItem key={i} value={size}>
-                      {size}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-        </AccordionDetails>
+              <AccordionDetails>
+                <InputLabel id="demo-simple-select-required-label">
+                  Title size
+                </InputLabel>
+                <Select
+                  value={titleSize}
+                  onChange={(e) => {
+                    setTitleSize(e.target.value);
+                  }}
+                >
+                  {optionFortextSize.map((size, i) => {
+                    return (
+                      <MenuItem key={i} value={size}>
+                        {size}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </AccordionDetails>
             </Accordion>
-           
-          
-           
-            
           </Toolbar>
         </Divider>
 
@@ -527,6 +594,21 @@ export default function SidebarRight({
               variant="contained"
             >
               My Surveys
+            </Button>
+          </Toolbar>
+        </Divider>
+
+        <Divider>
+          <Toolbar>
+            <Button
+              onClick={() => {
+                setShow(true);
+                setSurveyToShow(buildSurvey());
+              }}
+              color="success"
+              variant="contained"
+            >
+              preview
             </Button>
           </Toolbar>
         </Divider>
@@ -562,7 +644,8 @@ export default function SidebarRight({
     </div>
   );
 }
-{/* <Select
+{
+  /* <Select
                 labelId="demo-simple-select-required-label"
                 id="demo-simple-select-required"
                 value={category}
@@ -579,4 +662,5 @@ export default function SidebarRight({
                     </MenuItem>
                   );
                 })}
-              </Select> */}
+              </Select> */
+}

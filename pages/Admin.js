@@ -8,6 +8,19 @@ import { useState } from "react";
 import React from "react";
 import MySurveys from "../components/MySurveys";
 import { TextareaAutosize } from "@mui/material";
+import "survey-core/defaultV2.min.css";
+import { StylesManager, Model } from "survey-core";
+import { Survey } from "survey-react-ui";
+import styled from "styled-components";
+
+StylesManager.applyTheme("defaultV2");
+
+export const StyledCSS = styled.div`
+  .myCustomClass {
+    color: ${(props) => props.btnColor};
+    background-color: ${(props) => props.backGroundBtn};
+  }
+`;
 
 export default function Admin({ host }) {
   const [pages, setPages] = useState([]);
@@ -19,13 +32,16 @@ export default function Admin({ host }) {
   const [surveyPw, setSurveyPw] = useState("");
   const [category, setCategory] = useState("");
   const [id, setId] = useState("new");
-  const [backgroundColor,setBackgroundColor] = useState("")
-  const [titleColor,setTitleColor] = useState("")
-  const [titleSize,setTitleSize] = useState("");
-  const [textColor,setTextColor] = useState("")
-  const [textSize,setTextSize] = useState("");
-  const [btnBackground,setBtnBackground] = useState("");
-  const [btnColor,setBtnColor] = useState("")
+  const [backgroundColor, setBackgroundColor] = useState("");
+  const [titleColor, setTitleColor] = useState("");
+  const [titleSize, setTitleSize] = useState("");
+  const [textColor, setTextColor] = useState("");
+  const [textSize, setTextSize] = useState("");
+  const [btnBackground, setBtnBackground] = useState("");
+  const [btnColor, setBtnColor] = useState("");
+  const [show, setShow] = useState(false);
+  const [surveyToShowPreview, setSurveyToShow] = useState({});
+  const [numOfRenderSurvey, setNun] = useState(0);
 
   const [recorder, setRecorder] = useState("");
 
@@ -44,7 +60,61 @@ export default function Admin({ host }) {
     setPages(updatedPages);
   };
 
+  useEffect(() => {
+    if (show && !numOfRenderSurvey) {
+      setNun(1);
+    }
+    if (show && numOfRenderSurvey) {
+      document.getElementsByClassName(
+        "sd-container-modern"
+      )[0].style.backgroundColor = surveyToShowPreview.background;
+      document.getElementsByTagName("body")[0].style.backgroundColor =
+        surveyToShowPreview.background;
+      document.getElementsByTagName("body")[0].style.color =
+        surveyToShowPreview.textColor;
+      document.getElementsByTagName("body")[0].style.fontSize =
+        surveyToShowPreview.textSize;
+      document.getElementsByClassName("sv-string-viewer")[0].style.color =
+        surveyToShowPreview.titleColor;
+      document.getElementsByClassName("sv-string-viewer")[0].style.fontSize =
+        surveyToShowPreview.titleSize;
+      document.getElementsByClassName("sd-btn")[0].style.color =
+        surveyToShowPreview.btnColor;
+      document.getElementsByClassName("sd-btn")[0].style.backgroundColor =
+        surveyToShowPreview.btnBackground;
+    }
+  });
+
   const add = () => {
+    if (show) {
+      const myCss = {
+        navigation: {
+          next: "myCustomClass",
+          complete: "myCustomClass",
+        },
+      };
+      const previewSurvey = surveyToShowPreview;
+      const surveyToShow = new Model(previewSurvey);
+      return (
+        <StyledCSS
+          btnColor={previewSurvey.btnColor}
+          backGroundBtn={previewSurvey.btnBackground}
+        >
+          <Survey model={surveyToShow} css={myCss} />
+          <button
+            onClick={() => {
+              setShow(false);
+              document.getElementsByTagName("body")[0].style.backgroundColor =
+                "white";
+              document.getElementsByTagName("body")[0].style.color = "black";
+              document.getElementsByTagName("body")[0].style.fontSize = "1em";
+            }}
+          >
+            Back to editing
+          </button>
+        </StyledCSS>
+      );
+    }
     if (newSurvey) {
       return (
         <Fragment>
@@ -58,6 +128,8 @@ export default function Admin({ host }) {
             />
           </DndProvider>
           <SidebarRight
+            setSurveyToShow={setSurveyToShow}
+            setShow={setShow}
             addPage={addPage}
             pages={pages}
             setMySurveys={setMySurveys}
@@ -81,7 +153,7 @@ export default function Admin({ host }) {
             backgroundColor={backgroundColor}
             setTitleColor={setTitleColor}
             titleColor={titleColor}
-            setTitleSize = {setTitleSize}
+            setTitleSize={setTitleSize}
             titleSize={titleSize}
             setTextColor={setTextColor}
             textColor={textColor}
