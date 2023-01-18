@@ -1,12 +1,33 @@
 .market-container{
- width: 180px;
- height: 180px;
- display: flex;
- margin: 15px;
- justify-content: center;
- align-items: center;
-}
-.market-container Button{
   width: 180px;
   height: 180px;
-}
+  display: flex;
+  margin: 15px;
+  justify-content: center;
+  align-items: center;
+ }
+ .market-container Button{
+   width: 180px;
+   height: 180px;
+ }
+ 
+ .popup-container {
+   position: fixed; /* positions the div on the screen */
+   top: 50%; /* centers the div vertically on the screen */
+   left: 50%; /* centers the div horizontally on the screen */
+   transform: translate(-50%, -50%); /* adjusts the position based on the top and left values */
+   background-color: white; /* sets the background color */
+   padding: 30px; /* adds padding around the content */
+   border-radius: 10px; /* rounds the edges */
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* adds a subtle shadow */
+   z-index: 999; /* sets the div to appear above other elements on the page */
+ }
+ .close-button{
+   position: absolute;
+   right: 10px;
+   top: 10px;
+   background: none;
+   border: none;
+   color: #999;
+   font-size: 18px;
+ }

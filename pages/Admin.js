@@ -43,6 +43,8 @@ export default function Admin({ host }) {
   const [surveyToShowPreview, setSurveyToShow] = useState({});
   const [numOfRenderSurvey, setNun] = useState(0);
 
+  const [recorder, setRecorder] = useState("");
+
   const addPage = () => {
     setPages((pages) => [...pages, { elements: [] }]);
   };
@@ -161,6 +163,8 @@ export default function Admin({ host }) {
             btnBackground={btnBackground}
             setBtnColor={setBtnColor}
             btnColor={btnColor}
+            recorder={recorder}
+            setRecorder={setRecorder}
           />
         </Fragment>
       );

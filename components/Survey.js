@@ -64,7 +64,7 @@ export default function Survey({
         } else alert(json.msg);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("fatal error please try again latter");
       });
 

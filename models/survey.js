@@ -20,6 +20,7 @@ const surveySchema = new mongoose.Schema({
   textSize:String,
   btnBackground:String,
   btnColor:String,
+  recorder: String,
   completedHtml: String,
   completedHtmlOnCondition: Array,
 });
